@@ -1,0 +1,28 @@
+{
+	"name": "polycademy/dragoon",
+	"description": "PHP Experimental Framework",
+	"keywords": ["framework"],
+	"homepage": "https://github.com/Polycademy/Dragoon",
+	"license": "MIT",
+	"authors": [{
+		"name": "Roger Qiu",
+		"email": "roger.qiu@polycademy.com",
+		"homepage": "http://polycademy.com",
+		"role": "Founder and Developer"
+	}],
+	"require": {
+		"php": ">=5.4.12",
+		"polycademy/secrets": "0.0.1"
+	},
+	"require-dev": {
+		"codeception/codeception": "1.7.0.2"
+	},
+	"config": {
+		"bin-dir": "bin/"
+	},
+	"autoload": {
+		"psr-0": {
+			"Dragoon": ""
+		}
+	}
+}
