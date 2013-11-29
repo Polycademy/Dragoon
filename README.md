@@ -14,3 +14,5 @@ Router
 Begin providing all dependencies:
 
 IOC, Symfony Config or the other configuration file. Symfony Command, HTTP Kernel, HTTP Foundation. PHPDaemon or AMP, Artax/Guzzle. StackPHP's builder. PHP Asset Loader, PHP Twig. Testing frameworks like Codeception.
+
+You could have a cached folder too, but that's dependent on the project.
