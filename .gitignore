@@ -1,4 +1,19 @@
 #################
+## Dragoon
+#################
+
+vendor/
+node_modules/
+bower_components/
+bin/
+build/
+.c9revisions/
+*.pid
+Config/Secrets/*
+!.gitkeep
+!.md
+
+#################
 ## Eclipse
 #################
 
