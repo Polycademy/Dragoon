@@ -12,7 +12,8 @@
 	}],
 	"require": {
 		"php": ">=5.4.12",
-		"klein/klein": "2.0.2"
+		"klein/klein": "2.0.2",
+		"monolog/monolog": "1.7.0"
 	},
 	"require-dev": {
 		"codeception/codeception": "1.7.0.2"
