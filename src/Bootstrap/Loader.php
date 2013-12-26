@@ -14,11 +14,11 @@
 
 //THE LOADER also creates the middleware stack which is then injected into the router to be managed.
 
-$ioc['logger'] = $ioc->share(function($c){
+$loader['logger'] = $loader->share(function($c){
 	//get the logger object with the Monolog
 });
 
 //it becomes possible to do this: throw $error() no longer throw new Exception or it could be possible to do like Modules\Error::create()
-$loader['error'] = function($message = null, $code = 0, $previous = null) use ($ioc){
-	return new Modules\Error($message, $code, $previous, $ioc['logger']);
+$loader['error'] = function($message = null, $code = 0, $previous = null) use ($loader){
+	return new Dragoon\Modules\Error($message, $code, $previous, $loader['logger']);
 };

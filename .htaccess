@@ -4,6 +4,6 @@ DirectoryIndex index.html index.php
 
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteRule  ^$ public/    [L]
-	RewriteRule  (.*) public/$1 [L]
+	RewriteRule  ^$ src/Public/    [L]
+	RewriteRule  (.*) src/Public/$1 [L]
 </IfModule>

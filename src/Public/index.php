@@ -5,11 +5,20 @@ try{
 	//application environment defaults to development, or it can be extracted from SERVER_ENV
 	define('ENVIRONMENT', isset($_SERVER['SERVER_ENV']) ? $_SERVER['SERVER_ENV'] : 'development');
 
-	//have some error reporting code here... (how should errors be reported)
+	//Error Reporting
 	error_reporting(E_ALL);
 
-	//bring in Composer autoloader
-	require '../vendor/autoload.php';
+	//Composer autoloader
+	require '../../vendor/autoload.php';
+
+	//PSR-4 Autoloader
+	require '../Bootstrap/Autoloader.php';
+	$autoloader = new Autoloader;
+	$autoloader->register();
+	$autoloader->addNamespace('Dragoon', __DIR__ . '/../');
+
+	//Dependency Injection and IOC
+	require '../Bootstrap/Loader.php';
 
 	//then load in the bootstrapper and establish the configuration that will be needed, such as global variables like $_ENV, the bootstrap would also use the configuration to and establish the storage adapters for usage for the models that require database access
 

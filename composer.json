@@ -21,9 +21,5 @@
 	"config": {
 		"bin-dir": "bin/"
 	},
-	"autoload": {
-		"psr-0": {
-			"Dragoon": ""
-		}
-	}
+	"bin": ["bin/dragoon"]
 }

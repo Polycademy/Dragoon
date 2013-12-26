@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules;
+namespace Dragoon\Modules;
 
 use Monolog\Logger as Monolog;
 
