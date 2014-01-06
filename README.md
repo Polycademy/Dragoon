@@ -52,3 +52,5 @@ Note that one could do multiple requests individually, or provide convenience ob
 
 Dragoon should use the PSR4 Autoloading standard. Because there's really no need for a Dragoon folder inside the src folder. However PSR4 hasn't arrived to Composer yet, but when it does, we'll need to register Dragoon. And move everything to the src folder.
 PSR4 will be safe, as all of the code in projects will come from Dragoon, but PSR-0 wildcard namespace will allow people to specify Modules.. etc without Dragoon namespace.
+
+Make Dragoon into PSR-4 and also site template generator allowing any kind of namespace! It will need a binary executable to create a project. Perhaps a phar? Yea download phar. Or when composer needs a project, just add it as a dependency, it will download it, and then allow execution via a binary.
