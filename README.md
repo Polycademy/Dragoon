@@ -50,7 +50,51 @@ When creating API constructs, one should follow this style: https://github.com/n
 Basically the entire the API structure is mapped to an hierarchical namespaced object structure.
 Note that one could do multiple requests individually, or provide convenience objects that do a multitude of requests at the same time.
 
-Dragoon should use the PSR4 Autoloading standard. Because there's really no need for a Dragoon folder inside the src folder. However PSR4 hasn't arrived to Composer yet, but when it does, we'll need to register Dragoon. And move everything to the src folder.
-PSR4 will be safe, as all of the code in projects will come from Dragoon, but PSR-0 wildcard namespace will allow people to specify Modules.. etc without Dragoon namespace.
+Dragoon uses PSR-4. It has it's own autoloader. But Composer can be used to.
+It needs a site template generator that is a binary executable that can create project with any global namespace.
 
-Make Dragoon into PSR-4 and also site template generator allowing any kind of namespace! It will need a binary executable to create a project. Perhaps a phar? Yea download phar. Or when composer needs a project, just add it as a dependency, it will download it, and then allow execution via a binary.
+Perhaps the error object being thrown can contain both the HTTP status code and the Log error status codes! Or there needs to be some sort of translation.
+
+Benchmarking: https://github.com/devster/ubench
+DateTime: https://github.com/briannesbitt/Carbon
+Asset Management: https://github.com/kriswallsmith/assetic (probably good for template scripts)
+Verify: Validation
+Filtering (combine with Verify) https://github.com/ircmaxell/filterus
+Templating - https://github.com/php-loep/Plates, Mustache, Twig
+File Management - https://github.com/KnpLabs/Gaufrette
+Payment - https://github.com/adrianmacneil/omnipay
+API Billing & Throttling - https://github.com/adrianmacneil/omnipay
+Uploads - https://github.com/codeguy/Upload & Downloads - Download Controller
+XSS - https://github.com/ezyang/htmlpurifier
+Shell Manipulation - https://github.com/MrRio/shellwrap
+Geolocation - https://github.com/mjaschen/phpgeo
+Colour Manipulation - https://github.com/mikeemoo/ColorJizz-PHP
+Data Generator - https://github.com/fzaninotto/Faker
+HTTP Requests - https://github.com/rmccue/Requests OR Guzzle
+Utility - https://github.com/Anahkiasen/underscore-php OR http://brianhaveri.github.com/Underscore.php/
+ORM - Propel or Doctrine! Proper transaction and nested transactions support are a must. Transactions begin from the Controller and Models. If you're using Propel or Doctrine, they bundle migrations directly.
+Active Record - https://github.com/j4mie/paris
+PDF - https://github.com/psliwa/PHPPdf OR https://github.com/KnpLabs/snappy
+Image Manipulation - https://github.com/avalanche123/Imagine OR http://phpimageworkshop.com/
+Routing - https://github.com/chriso/klein.php
+Logging - Monolog
+Middleware - SnapSearch for HTML Interception
+Authentication & Authorisation - PolyAuth
+Documentor - ApiGen or PHPDocumentor
+HTTP Kernel - Symfony Requests
+CLI App - Symfony Console
+Configuration - Configula
+Class Creation - Symfony Options Resolver
+DI & IOC - Auryn
+Statistics - https://github.com/mcordingley/PHPStats
+Advanced Math - https://github.com/powder96/numbers.php
+Functional Primitives - https://github.com/lstrojny/functional-php
+API Throttling - https://github.com/davedevelopment/stiphle AND https://github.com/danapplegate/leaky-bucket-php
+API Billing - ?? none yet!
+API Usage Tracking - ??
+Federated Logging - ??
+Status Page - ??
+
+For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
+
+Indent using 4 spaces for tabs.
