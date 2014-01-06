@@ -92,7 +92,7 @@ Functional Primitives - https://github.com/lstrojny/functional-php
 API Throttling - https://github.com/davedevelopment/stiphle AND https://github.com/danapplegate/leaky-bucket-php
 API Billing - ?? none yet!
 API Usage Tracking - ??
-Federated Logging - ??
+Federated Logging - http://graylog2.org/ OR any of the commercial loggers and https://github.com/bzikarsky/gelf-php
 Status Page - ??
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
