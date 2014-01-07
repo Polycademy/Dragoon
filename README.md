@@ -99,3 +99,7 @@ Internationalisation - intl extension (http://au1.php.net/manual/en/intro.intl.p
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
 Indent using 4 spaces for tabs.
+
+Process Management: http://blog.crocodoc.com/post/48703468992/process-managers-the-good-the-bad-and-the-ugly
+
+https://github.com/chriso/klein.php/issues/166#issuecomment-31385173
