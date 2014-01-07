@@ -1,15 +1,22 @@
 <?php
 
-namespace Dragoon\Modules;
+namespace Yearbook\Modules;
 
 use Exception;
-use Modules\Logger;
 
 //Exception: http://php.net/manual/en/language.exceptions.extending.php
 //use http://tools.ietf.org/html/rfc5424 as error codes!
 
 class Error extends Exception{
 
+	const DEBUG = 100;
+	const INFO = 200;
+	const NOTICE = 250;
+	const WARNING = 300;
+	const ERROR = 400;
+	const CRITICAL = 500;
+	const ALERT = 550;
+	const EMERGENCY = 600;
 
 	//this is pure error object
 	//this represents a number of things
@@ -62,6 +69,21 @@ class Error extends Exception{
 	//if the bootstrapper doe
 	//throw new Exception();
 	//throw $error
+	//Error::debug
+
+	//use Yearbook\Modules\Error;
+	//__construct(Error $error)
+	//throw $error->debug(...) (debug would create the Exception object)? Or it would create itself (using static method)
+	//or
+	//throw $error() -> calls __invoke to create a default error object
+	//or 
+	//throw Error::debug
+	//or
+	//thro $error($diagnotic, $error::DEBUG)
+	//
+	//logging could be done upon instantiation... but that won't work if the error object is injected, since it needs to be instantiated to be injected
+	//so perhaps logging is a captured thing
+	//DiagnosticErrorHandling middleware!
 
 	public function setMessage($message){
 
@@ -69,8 +91,14 @@ class Error extends Exception{
 	
 	}
 
+	public function __invoke(){
+		//
+	}
+
 	//these static functions should create exceptions with the correct codes!
 	public static function debug($message){
+
+		//use self::
 
 	}
 
