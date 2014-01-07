@@ -7,9 +7,10 @@ node_modules/
 bower_components/
 bin/
 build/
+logs/
 .c9revisions/
 *.pid
-Config/Secrets/*
+src/Config/Secrets/*
 !.gitkeep
 !.md
 
