@@ -94,6 +94,7 @@ API Billing - ?? none yet!
 API Usage Tracking - ??
 Federated Logging - http://graylog2.org/ OR any of the commercial loggers and https://github.com/bzikarsky/gelf-php
 Status Page - ??
+Internationalisation - intl extension (http://au1.php.net/manual/en/intro.intl.php) OR Symfony Translator http://symfony.com/doc/master/book/translation.html AND https://github.com/dotroll/I18N
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
