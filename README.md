@@ -101,6 +101,8 @@ Math - https://github.com/moontoast/math
 Statistics - https://github.com/mcordingley/PHPStats
 Multithreading - https://github.com/krakjoe/pthreads
 LINQ - https://github.com/akanehara/ginq OR https://github.com/Athari/YaLinqo OR https://github.com/Blackshawk/phinq
+Markup or TextFormatting (forums) - https://github.com/s9e/TextFormatter
+Output Filtering (XSS/Escaping) - http://htmlpurifier.org/
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
