@@ -70,7 +70,7 @@ Shell Manipulation - https://github.com/MrRio/shellwrap
 Geolocation - https://github.com/mjaschen/phpgeo
 Colour Manipulation - https://github.com/mikeemoo/ColorJizz-PHP
 Data Generator - https://github.com/fzaninotto/Faker
-HTTP Requests - https://github.com/rmccue/Requests OR Guzzle
+HTTP Requests - https://github.com/rmccue/Requests OR Guzzle OR Artax (for non curl)
 Utility - https://github.com/Anahkiasen/underscore-php OR http://brianhaveri.github.com/Underscore.php/
 ORM - Propel or Doctrine! Proper transaction and nested transactions support are a must. Transactions begin from the Controller and Models. If you're using Propel or Doctrine, they bundle migrations directly. Using Propel use getConnection() to extract PDO connection: https://github.com/propelorm/Propel2/issues/509
 Active Record - https://github.com/j4mie/paris
@@ -97,6 +97,10 @@ Status Page - ??
 Internationalisation - intl extension (http://au1.php.net/manual/en/intro.intl.php) OR Symfony Translator http://symfony.com/doc/master/book/translation.html AND https://github.com/dotroll/I18N
 Representing Money - https://github.com/ikr/money-math-php for BIG money and https://github.com/mathiasverraes/money for Cents based money
 Build Automation - https://github.com/gulpjs/gulp OR Grunt
+Math - https://github.com/moontoast/math
+Statistics - https://github.com/mcordingley/PHPStats
+Multithreading - https://github.com/krakjoe/pthreads
+LINQ - https://github.com/akanehara/ginq OR https://github.com/Athari/YaLinqo OR https://github.com/Blackshawk/phinq
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
