@@ -113,6 +113,7 @@ PHP REPL - Boris
 LESS - https://github.com/mrmrs/colors
 Client Side Persistence - http://www.slideshare.net/casden/inbrowser-storage-and-me
 AngularJS Style Guide - https://github.com/mgechev/angularjs-style-guide
+Autoloader (PSR-4 and PSR-0) - https://github.com/auraphp/Aura.Autoload
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
