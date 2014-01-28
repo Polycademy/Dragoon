@@ -103,6 +103,16 @@ Multithreading - https://github.com/krakjoe/pthreads
 LINQ - https://github.com/akanehara/ginq OR https://github.com/Athari/YaLinqo OR https://github.com/Blackshawk/phinq
 Markup or TextFormatting (forums) - https://github.com/s9e/TextFormatter
 Output Filtering (XSS/Escaping) - http://htmlpurifier.org/
+Encryption - https://github.com/phpseclib/phpseclib
+More internationalisation and fallback classes - https://github.com/flourishlib/flourish-classes
+Nice exceptions - https://github.com/filp/whoops
+Serializable Closures (code as data) - https://github.com/jeremeamia/super_closure
+ANSI Colours - https://github.com/kevinlebrun/colors.php
+Git Project Maintenance - https://github.com/cordoval/gush
+PHP REPL - Boris
+LESS - https://github.com/mrmrs/colors
+Client Side Persistence - http://www.slideshare.net/casden/inbrowser-storage-and-me
+AngularJS Style Guide - https://github.com/mgechev/angularjs-style-guide
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
@@ -111,3 +121,5 @@ Indent using 4 spaces for tabs.
 Process Management: http://blog.crocodoc.com/post/48703468992/process-managers-the-good-the-bad-and-the-ugly
 
 https://github.com/chriso/klein.php/issues/166#issuecomment-31385173
+
+USE: https://github.com/nicolas-grekas/Patchwork-UTF8 for UTF8
