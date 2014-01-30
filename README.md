@@ -95,7 +95,7 @@ Federated Logging - http://graylog2.org/ OR any of the commercial loggers and ht
 Status Page - ??
 Internationalisation - intl extension (http://au1.php.net/manual/en/intro.intl.php) OR Symfony Translator http://symfony.com/doc/master/book/translation.html AND https://github.com/dotroll/I18N
 Representing Money - https://github.com/ikr/money-math-php for BIG money and https://github.com/mathiasverraes/money for Cents based money
-Build Automation - https://github.com/gulpjs/gulp OR Grunt
+Build Automation - https://github.com/gulpjs/gulp OR Grunt OR https://github.com/jaz303/phake (Rake/Make)
 Math - https://github.com/moontoast/math & https://github.com/moontoast/math/issues/3#issuecomment-33243171 OR https://github.com/powder96/numbers.php
 Math Equations - https://github.com/rezzza/Formulate & https://github.com/mormat/php-formula-interpreter
 Statistics - https://github.com/mcordingley/PHPStats
@@ -115,7 +115,6 @@ Client Side Persistence - http://www.slideshare.net/casden/inbrowser-storage-and
 AngularJS Style Guide - https://github.com/mgechev/angularjs-style-guide
 Autoloader (PSR-4 and PSR-0) - https://github.com/auraphp/Aura.Autoload
 Deployment (SSH) - https://github.com/Anahkiasen/rocketeer
-Build - https://github.com/jaz303/phake
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
@@ -126,3 +125,17 @@ Process Management: http://blog.crocodoc.com/post/48703468992/process-managers-t
 https://github.com/chriso/klein.php/issues/166#issuecomment-31385173
 
 USE: https://github.com/nicolas-grekas/Patchwork-UTF8 for UTF8
+
+Barcode - https://github.com/dineshrabara/barcode
+String Manipulation - https://github.com/danielstjules/Stringy
+
+Character Encoding Issue
+------------------------
+
+There is a big problem with UTF-8 and PHP:
+
+http://www.phpwact.org/php/i18n/charsets
+http://stackoverflow.com/questions/279170/utf-8-all-the-way-through
+http://kunststube.net/encoding/
+
+Need to solve this for portability.

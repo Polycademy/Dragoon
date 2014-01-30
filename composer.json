@@ -13,7 +13,8 @@
 	"require": {
 		"php": ">=5.4.12",
 		"klein/klein": "~2.0",
-		"monolog/monolog": "~1.7"
+		"monolog/monolog": "~1.7",
+		"patchwork/utf8": "~1.1"
 	},
 	"require-dev": {
 		"codeception/codeception": "~1.8",
@@ -21,8 +22,13 @@
 		"fabpot/php-cs-fixer": "~0.4",
 		"phpmd/phpmd": "~1.5"
 	},
+	"suggest": {
+		"ext-intl": "Use Intl for internationalisation",
+		"ext-iconv": "Use iconv for character set conversions",
+		"ext-mbstring": "Use Mbstring for for utf-8 operations"
+	},
 	"config": {
 		"bin-dir": "bin/"
 	},
-	"bin": ["src/Commands/Dragoon"]
+	"bin": ["src/Commands/Dragoon"],
 }
