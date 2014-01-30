@@ -115,6 +115,12 @@ Client Side Persistence - http://www.slideshare.net/casden/inbrowser-storage-and
 AngularJS Style Guide - https://github.com/mgechev/angularjs-style-guide
 Autoloader (PSR-4 and PSR-0) - https://github.com/auraphp/Aura.Autoload
 Deployment (SSH) - https://github.com/Anahkiasen/rocketeer
+Option Type - https://github.com/schmittjoh/php-option
+PHP Parsing - https://github.com/nikic/PHP-Parser
+Serializer (XML, JSON, YAML) - https://github.com/schmittjoh/serializer
+Collection Type - https://github.com/schmittjoh/PHP-Collection
+PHP Source Code Manipulator - https://github.com/schmittjoh/PHP-Manipulator (This is needed!?)
+DSL Parsers - https://github.com/schmittjoh/parser-lib & https://github.com/symfony/expression-language & https://github.com/hafriedlander/php-peg & http://www.slideshare.net/troelskn/overview-dslforphp & https://github.com/maximebf/parsec & http://stackoverflow.com/questions/3720362/what-is-a-good-parser-generator-for-php & http://stackoverflow.com/questions/13940641/implementing-a-dsl-in-php (To do this in JS: https://github.com/zaach/jison)
 
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
