@@ -87,7 +87,6 @@ Configuration - Configula
 Class Creation - Symfony Options Resolver
 DI & IOC - Auryn
 Statistics - https://github.com/mcordingley/PHPStats
-Advanced Math - https://github.com/powder96/numbers.php
 Functional Primitives - https://github.com/lstrojny/functional-php
 API Throttling - https://github.com/davedevelopment/stiphle AND https://github.com/danapplegate/leaky-bucket-php
 API Billing - ?? none yet!
@@ -97,7 +96,8 @@ Status Page - ??
 Internationalisation - intl extension (http://au1.php.net/manual/en/intro.intl.php) OR Symfony Translator http://symfony.com/doc/master/book/translation.html AND https://github.com/dotroll/I18N
 Representing Money - https://github.com/ikr/money-math-php for BIG money and https://github.com/mathiasverraes/money for Cents based money
 Build Automation - https://github.com/gulpjs/gulp OR Grunt
-Math - https://github.com/moontoast/math & https://github.com/moontoast/math/issues/3#issuecomment-33243171
+Math - https://github.com/moontoast/math & https://github.com/moontoast/math/issues/3#issuecomment-33243171 OR https://github.com/powder96/numbers.php
+Math Equations - https://github.com/rezzza/Formulate & https://github.com/mormat/php-formula-interpreter
 Statistics - https://github.com/mcordingley/PHPStats
 Multithreading - https://github.com/krakjoe/pthreads
 LINQ - https://github.com/akanehara/ginq OR https://github.com/Athari/YaLinqo OR https://github.com/Blackshawk/phinq
