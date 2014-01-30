@@ -7,7 +7,7 @@ node_modules/
 bower_components/
 bin/
 build/
-
+logs/
 .c9revisions/
 *.pid
 src/Config/Secrets/*
