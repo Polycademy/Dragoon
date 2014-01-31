@@ -2,14 +2,16 @@
 
 namespace Dragoon\Bootstrap;
 
+use Auryn ReflectionPool;
+use Auryn\Provider;
+
 class Loader{
 
     protected $loader;
-    protected $middleware = [];
 
     public function __construct(){
 
-        $this->loader = new Auryn\Provider(new Auryn\ReflectionPool);
+        $this->loader = new Provider(new ReflectionPool);
         $this->register();
 
     }
@@ -17,12 +19,6 @@ class Loader{
     public function __call($method, $args){
 
         return call_user_func_array(array($this->loader, $method), $args);
-
-    }
-
-    public function middleware(array $middleware){
-
-        $this->middleware = $middleware;
 
     }
 

@@ -10,7 +10,7 @@ class Router{
 
 	public function __construct(Kernel $kernel){
 
-		$this->loader = $kernel;
+		$this->kernel = $kernel;
 
 	}
 

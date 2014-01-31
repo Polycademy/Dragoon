@@ -5,7 +5,12 @@ Dragoon is an experimental framework.
 
 Index.php is the FC.
 Router.php is a master middleware which calls in the other middleware.
-Bootstrap.php is the IOC that bootstraps all modules, libraries and most importantly controllers.
+Loader.php is the IOC that bootstraps all modules, libraries and most importantly controllers.
+
+
+
+
+
 
 Router
 	-> /
@@ -123,6 +128,7 @@ Serializer (XML, JSON, YAML) - https://github.com/schmittjoh/serializer
 Collection Type - https://github.com/schmittjoh/PHP-Collection
 PHP Source Code Manipulator - https://github.com/schmittjoh/PHP-Manipulator (This is needed!?)
 DSL Parsers - https://github.com/schmittjoh/parser-lib & https://github.com/symfony/expression-language & https://github.com/hafriedlander/php-peg & http://www.slideshare.net/troelskn/overview-dslforphp & https://github.com/maximebf/parsec & http://stackoverflow.com/questions/3720362/what-is-a-good-parser-generator-for-php & http://stackoverflow.com/questions/13940641/implementing-a-dsl-in-php (To do this in JS: https://github.com/zaach/jison)
+Event Bus - https://github.com/igorw/evenement
 
 Investigate - https://github.com/auraphp/Aura.Marshal
 
