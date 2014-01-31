@@ -1,9 +1,9 @@
 <?php
 
-namespace Yearbook\Controllers;
+namespace Dragoon\Controllers;
 
 use Symfony\Component\HttpFoundation\Request;
-use Yearbook\Middleware\MiddlewareInterface;
+use Dragoon\Middleware\MiddlewareInterface;
 
 abstract class AbstractController implements MiddlewareInterface{
 

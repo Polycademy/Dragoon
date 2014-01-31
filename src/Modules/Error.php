@@ -1,6 +1,6 @@
 <?php
 
-namespace Yearbook\Modules;
+namespace Dragoon\Modules;
 
 use Exception;
 

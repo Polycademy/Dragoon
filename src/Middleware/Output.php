@@ -1,8 +1,8 @@
 <?php
 
-namespace Yearbook\Middleware;
+namespace Dragoon\Middleware;
 
-use Yearbook\Middleware\MiddlewareInterface;
+use Dragoon\Middleware\MiddlewareInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class Output implements MiddlewareInterface{

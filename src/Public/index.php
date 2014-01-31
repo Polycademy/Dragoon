@@ -11,14 +11,8 @@ try{
 	//bring in Composer autoloader
 	require '../../vendor/autoload.php';
 
-	//PSR-4 Autoloader (temporary until Composer has it's own PSR-4 autoloader)
-	require '../Bootstrap/Autoloader.php';
-	$autoloader = new Autoloader;
-	$autoloader->register();
-	$autoloader->addNamespace('Dragoon', __DIR__ . '/../');
-
 	//Initialising Default Configuration
-	$initialise = new Dragoon\Bootstrap\Initialise;
+	\Dragoon\Bootstrap\Initialise::init();
 
 	//IOC Container
 	$loader = new Dragoon\Bootstrap\Loader;

@@ -1,24 +1,108 @@
 <?php
 
-//the bootstrap will load the pimple IOC
-//Which will bring in all the configuration, and all of the controllers, modules, libraries
-//Bootstrap can also bring in any secrets..?
-//Since the configuration will be stored inside Pimple's IOC array, this can then be inserted into any controllers that require it
+namespace Dragoon\Bootstrap;
 
-//also pass any the monolog instances here, to classes that will use logging
+class Loader{
+
+    protected $loader;
+    protected $middleware = [];
+
+    public function __construct(){
+
+        $this->loader = new Auryn\Provider(new Auryn\ReflectionPool);
+        $this->register();
+
+    }
+
+    public function __call($method, $args){
+
+        return call_user_func_array(array($this->loader, $method), $args);
+
+    }
+
+    public function middleware(array $middleware){
+
+        $this->middleware = $middleware;
+
+    }
+
+    public function kernel($controller, $request_parameters, array $middleware = null){
+
+        $controller = $this->loader->make($controller);
+        $request = $this->loader->make('Symfony\Component\HttpFoundation\Request');
+        $builder = $this->loader->make('Yearbook\Middleware\MiddlewareBuilder');
+
+        //add the request_parameters to the attributes object of the $request instance
+        //the request parameters will store the URL's stored named parameters from the Router
 
 
-//THE LOADER is one that loads all the configuration. This can then be injected into all of the controllers or modules or libraries.
+        //need to use the StackBuilder (something similar) to build the middleware stack with the controller
+        //as the final middleware
+        $middleware = ($middleware) ? $middleware : $this->middleware;
+        foreach($middleware as $handler){
+            $builder->push($handler);
+        }
+        $builder->resolve($request, $controller);
 
-//NOTE THAT the Router is separated from the loader. The Router uses the loader. That is the Loader is passed as a dependency to the Router.
+        //You cannot push a fully instantiated middleware into the builder, since it needs to be constructed
+        //as an onion
+        //So the Loader itself needs to also act as the MiddlewareBuilder
 
-//THE LOADER also creates the middleware stack which is then injected into the router to be managed.
+    }
 
-$loader['logger'] = $loader->share(function($c){
-	//get the logger object with the Monolog
-});
+    protected function register(){
 
-//it becomes possible to do this: throw $error() no longer throw new Exception or it could be possible to do like Modules\Error::create()
-$loader['error'] = function($message = null, $code = 0, $previous = null) use ($loader){
-	return new Dragoon\Modules\Error($message, $code, $previous, $loader['logger']);
-};
+        //CONFIGURATION
+
+        //ERROR needs to be able to be passed in as a parameter to classes that need the error object as $error();
+        $error = function($message, $code, $previous){
+            return new Yearbook\Modules\Error($message, $code, $previous, $this->loader->make('Monolog\Logger'));
+        };
+
+        //LOGGER
+        $loggerFactory = function(){
+            $logger = new Monolog\Logger('Yearbook');
+            $logger->pushHandler(new Monolog\StreamHandler(__DIR__ . '/../../logs/yearbook.log', Monolog\Logger::NOTICE));
+            $logger->pushHandler(new Monolog\FirePHPHandler());
+            return $logger;
+        };
+        $this->loader->share('Monolog\Logger');
+        $this->loader->delegate('Monolog\Logger', $loggerFactory);
+
+        //ROUTER
+        $this->loader->share('Klein\Klein');
+
+        //REQUEST
+        $requestFactory = function(){
+            $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
+            //php-fpm doesn't support getallheaders yet: https://bugs.php.net/bug.php?id=62596
+            //however apache and fast-cgi does support getallheaders
+            if(function_exists('getallheaders')){
+                $headers = getallheaders();
+                if(isset($headers['Authorization'])){
+                    $request->headers->set('Authorization', $headers['Authorization']);
+                }
+            }
+            return $request;
+        };
+        $this->loader->share('Symfony\Component\HttpFoundation\Request');
+        $this->loader->delegate('Symfony\Component\HttpFoundation\Request', $requestFactory);
+
+        //PDO
+        $this->loader->share('PDO');
+        $this->loader->define('PDO', [
+            ':dsn'  => 'mysql:host=localhost;dbname=yearbook',
+            ':username' => 'root',
+            ':password' => '',
+            ':driver_options'   => [
+                \PDO::ATTR_PERSISTENT   => true
+            ]
+        ]);
+
+        $this->loader->share('Yearbook\Storage\MySQLAdapter');
+
+        $this->loader->share('Yearbook\Modules\TimelineModel');
+
+    }
+
+}

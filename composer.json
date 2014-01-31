@@ -12,9 +12,12 @@
 	}],
 	"require": {
 		"php": ">=5.4.12",
-		"klein/klein": "~2.0",
+		"patchwork/utf8": "~1.1",
+		"rdlowrey/auryn": "~0.12",
+		"aura/router": "~2.0.0-beta1",
+		"caseyamcl/configula": "~2.2",
 		"monolog/monolog": "~1.7",
-		"patchwork/utf8": "~1.1"
+		"symfony/http-foundation": "~2.4"
 	},
 	"require-dev": {
 		"codeception/codeception": "~1.8",
@@ -30,5 +33,10 @@
 	"config": {
 		"bin-dir": "bin/"
 	},
-	"bin": ["src/Commands/Dragoon"],
+	"autoload": {
+		"psr-4": {
+			"Dragoon": "src"
+		}
+	},
+	"bin": ["src/Commands/Dragoon"]
 }

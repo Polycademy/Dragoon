@@ -1,0 +1,10 @@
+{
+  "name": "dragoon",
+  "dependencies": {
+    "jquery": "~2.1",
+    "es6-shim": "~0.8",
+    "es5-shim": "~2.3",
+    "json3": "~3.3",
+    "lodash": "~2.4"
+  }
+}

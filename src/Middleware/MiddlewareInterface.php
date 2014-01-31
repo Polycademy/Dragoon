@@ -1,6 +1,6 @@
 <?php
 
-namespace Yearbook\Middleware;
+namespace Dragoon\Middleware;
 
 use Symfony\Component\HttpFoundation\Request;
 

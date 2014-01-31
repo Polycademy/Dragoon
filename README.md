@@ -73,6 +73,8 @@ Data Generator - https://github.com/fzaninotto/Faker
 HTTP Requests - https://github.com/rmccue/Requests OR Guzzle OR Artax (for non curl)
 Utility - https://github.com/Anahkiasen/underscore-php OR http://brianhaveri.github.com/Underscore.php/
 ORM - Propel or Doctrine! Proper transaction and nested transactions support are a must. Transactions begin from the Controller and Models. If you're using Propel or Doctrine, they bundle migrations directly. Using Propel use getConnection() to extract PDO connection: https://github.com/propelorm/Propel2/issues/509
+Simple ORM - https://github.com/auraphp/Aura.Sql (PDO extended)
+Migrations - Phinx
 Active Record - https://github.com/j4mie/paris
 PDF - https://github.com/psliwa/PHPPdf OR https://github.com/KnpLabs/snappy
 Image Manipulation - https://github.com/avalanche123/Imagine OR http://phpimageworkshop.com/
@@ -122,6 +124,8 @@ Collection Type - https://github.com/schmittjoh/PHP-Collection
 PHP Source Code Manipulator - https://github.com/schmittjoh/PHP-Manipulator (This is needed!?)
 DSL Parsers - https://github.com/schmittjoh/parser-lib & https://github.com/symfony/expression-language & https://github.com/hafriedlander/php-peg & http://www.slideshare.net/troelskn/overview-dslforphp & https://github.com/maximebf/parsec & http://stackoverflow.com/questions/3720362/what-is-a-good-parser-generator-for-php & http://stackoverflow.com/questions/13940641/implementing-a-dsl-in-php (To do this in JS: https://github.com/zaach/jison)
 
+Investigate - https://github.com/auraphp/Aura.Marshal
+
 For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
 
 Indent using 4 spaces for tabs.
@@ -145,3 +149,5 @@ http://stackoverflow.com/questions/279170/utf-8-all-the-way-through
 http://kunststube.net/encoding/
 
 Need to solve this for portability.
+
+Use composer install --no-dev during production!

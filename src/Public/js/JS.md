@@ -10,12 +10,19 @@ Perhaps they are folders like this:
 
 Elements refer to Directive Templates. These are directives that are bound to a specific template.
 
+Refer to https://github.com/mgechev/angularjs-style-guide
+
 js/
-	controllers
-	directives
-	elements/
-		SearchForm.Element.js
-		SearchForm.html
-	filters
-	services
-	vendor
+	app/
+		controllers
+		directives
+		elements/
+			SearchForm.Element.js
+			SearchForm.html
+		filters
+		services
+		vendor
+	vendor/
+		manually installed external libraries
+	bower_components/
+		bower stuff
