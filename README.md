@@ -147,6 +147,11 @@ USE: https://github.com/nicolas-grekas/Patchwork-UTF8 for UTF8
 Barcode - https://github.com/dineshrabara/barcode
 String Manipulation - https://github.com/danielstjules/Stringy
 
+OOCSS!
+http://coding.smashingmagazine.com/2011/12/12/an-introduction-to-object-oriented-css-oocss/
+
+Use PHP Fractal for data marshalling!
+
 Character Encoding Issue
 ------------------------
 
