@@ -7,8 +7,10 @@ Index.php is the FC.
 Router.php is a master middleware which calls in the other middleware.
 Loader.php is the IOC that bootstraps all modules, libraries and most importantly controllers.
 
-
-
+Loader is the IOC that registers all the necessary controllers and modules.
+The Kernel needs to the Loader so it can build up a stack of middleware. (pre middle and post middle)
+The Router needs to the Kernel so it rout any URL paths to the controller, while running through the middleware
+stack(A, B, C) -> Controller -> stack(X, Y, Z)
 
 
 
