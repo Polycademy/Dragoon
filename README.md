@@ -68,13 +68,13 @@ Asset Management: https://github.com/kriswallsmith/assetic (probably good for te
 Verify: Validation
 Filtering (combine with Verify) https://github.com/ircmaxell/filterus
 Templating - https://github.com/php-loep/Plates, Mustache, Twig
-File Management - https://github.com/KnpLabs/Gaufrette
+File Management - https://github.com/KnpLabs/Gaufrette & https://github.com/thephpleague/flysystem
 Payment - https://github.com/adrianmacneil/omnipay
 API Billing & Throttling - https://github.com/adrianmacneil/omnipay
 Uploads - https://github.com/codeguy/Upload & Downloads - Download Controller
 XSS - https://github.com/ezyang/htmlpurifier
 Shell Manipulation - https://github.com/MrRio/shellwrap
-Geolocation - https://github.com/mjaschen/phpgeo
+Geolocation - https://github.com/mjaschen/phpgeo & https://github.com/thephpleague/geotools
 Colour Manipulation - https://github.com/mikeemoo/ColorJizz-PHP
 Data Generator - https://github.com/fzaninotto/Faker
 HTTP Requests - https://github.com/rmccue/Requests OR Guzzle OR Artax (for non curl)
