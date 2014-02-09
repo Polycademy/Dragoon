@@ -80,6 +80,7 @@ Data Generator - https://github.com/fzaninotto/Faker
 HTTP Requests - https://github.com/rmccue/Requests OR Guzzle OR Artax (for non curl)
 Utility - https://github.com/Anahkiasen/underscore-php OR http://brianhaveri.github.com/Underscore.php/
 ORM - Propel or Doctrine! Proper transaction and nested transactions support are a must. Transactions begin from the Controller and Models. If you're using Propel or Doctrine, they bundle migrations directly. Using Propel use getConnection() to extract PDO connection: https://github.com/propelorm/Propel2/issues/509
+I recommend Doctrine for big applications as the data mapper pattern is far superior to the active record pattern. In small simple apps, use Propel. In even smaller apps just use raw PDO.
 Simple ORM - https://github.com/auraphp/Aura.Sql (PDO extended)
 Migrations - Phinx
 Active Record - https://github.com/j4mie/paris
@@ -131,6 +132,7 @@ Collection Type - https://github.com/schmittjoh/PHP-Collection
 PHP Source Code Manipulator - https://github.com/schmittjoh/PHP-Manipulator (This is needed!?)
 DSL Parsers - https://github.com/schmittjoh/parser-lib & https://github.com/symfony/expression-language & https://github.com/hafriedlander/php-peg & http://www.slideshare.net/troelskn/overview-dslforphp & https://github.com/maximebf/parsec & http://stackoverflow.com/questions/3720362/what-is-a-good-parser-generator-for-php & http://stackoverflow.com/questions/13940641/implementing-a-dsl-in-php (To do this in JS: https://github.com/zaach/jison)
 Event Bus - https://github.com/igorw/evenement
+Async Task Queue - https://github.com/CoderKungfu/php-queue
 
 Investigate - https://github.com/auraphp/Aura.Marshal
 
