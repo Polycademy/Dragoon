@@ -154,7 +154,7 @@ http://coding.smashingmagazine.com/2011/12/12/an-introduction-to-object-oriented
 
 Use PHP Fractal for data marshalling!
 
-Use: https://github.com/willdurand/Negotiation for negotiation
+Use: https://github.com/willdurand/Negotiation for negotiation AND READ THIS: http://stackoverflow.com/a/385216/582917
 
 Character Encoding Issue
 ------------------------
