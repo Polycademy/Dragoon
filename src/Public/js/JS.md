@@ -21,8 +21,7 @@ js/
 			SearchForm.html
 		filters
 		services
-		vendor
-	vendor/
+	lib/
 		manually installed external libraries
 	bower_components/
 		bower stuff
