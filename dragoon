@@ -1,0 +1,5 @@
+#!/usr/bin/env php
+<?php
+
+//this will be the script that contacts Dragoon.php
+//inspired from https://github.com/laravel/laravel/blob/master/artisan
