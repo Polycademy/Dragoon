@@ -24,7 +24,7 @@ IOC, Symfony Config or the other configuration file. Symfony Command, HTTP Kerne
 
 You could have a cached folder too, but that's dependent on the project.
 
-Gruntfile should optimise autoload
+Gruntfile should optimise autoload, actually use GulpJS instead! Or Phake!
 
 Input data may have formatting errors. We should deal with that.
 
