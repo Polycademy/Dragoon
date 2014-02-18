@@ -2,15 +2,26 @@
 ## Dragoon
 #################
 
+## Dependencies
+
 vendor/
 node_modules/
-bower_components/
+src/Public/js/bower_components/
+
+## Generated Folders and Files
+
 bin/
 build/
-logs/
-.c9revisions/
+data/logs/
+composer.lock
 *.pid
+
+## Secrets
+
 src/Config/Secrets/*
+
+## Negation
+
 !.gitkeep
 !.md
 
