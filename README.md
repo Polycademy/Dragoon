@@ -133,6 +133,9 @@ PHP Source Code Manipulator - https://github.com/schmittjoh/PHP-Manipulator (Thi
 DSL Parsers - https://github.com/schmittjoh/parser-lib & https://github.com/symfony/expression-language & https://github.com/hafriedlander/php-peg & http://www.slideshare.net/troelskn/overview-dslforphp & https://github.com/maximebf/parsec & http://stackoverflow.com/questions/3720362/what-is-a-good-parser-generator-for-php & http://stackoverflow.com/questions/13940641/implementing-a-dsl-in-php (To do this in JS: https://github.com/zaach/jison)
 Event Bus - https://github.com/igorw/evenement
 Async Task Queue - https://github.com/CoderKungfu/php-queue
+Jade for Templates - https://github.com/visionmedia/jade - this can be combined with PHP Plates for the initial template. But since all templates are client side anyway. Don't bother with plates unless you're not writing a Client side app! BTW HTML IS UGLY!
+HATEOAS - https://github.com/willdurand/Hateoas
+
 
 Investigate - https://github.com/auraphp/Aura.Marshal
 
@@ -170,3 +173,11 @@ http://kunststube.net/encoding/
 Need to solve this for portability.
 
 Use composer install --no-dev during production!
+
+https://github.com/jackfranklin/pulldown - Dependencies on specific files.
+
+If we use Jade as a templating language. We could the templates and partials and compile down to one single file that can still be rendered with PHP.
+However elements should be compiled elements. Should they use Jade? Yea sure I guess. They can compile down to .html files.
+
+Angular Elements => http://benclinkinbeard.com/posts/towards-atomic-angularjs-components-with-browserify/
+https://www.npmjs.org/package/partialify
