@@ -23,5 +23,3 @@ js/
 		services
 	lib/
 		manually installed external libraries
-	bower_components/
-		bower stuff

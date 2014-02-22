@@ -14,3 +14,5 @@ They can be straight PHP, or whatever. But you need to load the templates throug
 Or the templates can have no server side variables at all.
 
 It's also possible to have the index.html to be loaded as a PHP template, and be inserted with any variables from the server, but all the other templates have no PHP at all.
+
+All of these templates could actually be precompiled (inlined) into the javascript. Or they can asynchronously loaded. Both have advantages and disadvantages. index.php will always be used!
