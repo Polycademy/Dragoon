@@ -23,3 +23,12 @@ js/
 		services
 	lib/
 		manually installed external libraries
+
+AngularJS Inheritance:
+
+http://badwing.com/angularjs-service-inheritance/
+https://github.com/mgechev/angular-aop
+http://blog.mgechev.com/2013/12/18/inheritance-services-controllers-in-angularjs/
+http://digital-drive.com/?p=188
+https://github.com/exratione/angularjs-controller-inheritance
+https://www.exratione.com/2013/10/two-approaches-to-angularjs-controller-inheritance/
