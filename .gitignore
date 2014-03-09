@@ -6,7 +6,7 @@
 
 vendor/
 node_modules/
-src/Public/components/
+src/Public/bower_components/
 
 ## Generated Folders and Files
 
