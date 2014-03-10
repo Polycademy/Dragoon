@@ -161,6 +161,8 @@ Use: https://github.com/willdurand/Negotiation for negotiation AND READ THIS: ht
 
 Start using Pux as a router again. It supports PATCH, HEAD, OPTIONS!
 
+https://github.com/eloquent/asplode
+
 Character Encoding Issue
 ------------------------
 
