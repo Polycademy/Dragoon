@@ -15,8 +15,8 @@ stack(A, B, C) -> Controller -> stack(X, Y, Z)
 
 
 Router
-	-> /
-		-> Stack(A, B, C, D)->IOC->Stack(X, Y, Z)
+    -> /
+        -> Stack(A, B, C, D)->IOC->Stack(X, Y, Z)
 
 Begin providing all dependencies:
 
@@ -183,3 +183,27 @@ However elements should be compiled elements. Should they use Jade? Yea sure I g
 
 Angular Elements => http://benclinkinbeard.com/posts/towards-atomic-angularjs-components-with-browserify/
 https://www.npmjs.org/package/partialify
+
+PHP HIGH PERFORMANCE! (opcode cache has a problem with Rocketeer and Capistrano)
+https://support.cloud.engineyard.com/entries/26902267-PHP-Performance-I-Everything-You-Need-to-Know-About-OpCode-Caches
+
+Zero downtime for NGINX?
+
+http://blog.argteam.com/coding/hardening-node-js-for-production-part-3-zero-downtime-deployments-with-nginx/
+http://blog.argteam.com/coding/hardening-node-js-for-production-part-2-using-nginx-to-avoid-node-js-load/
+http://blog.argteam.com/coding/hardening-nodejs-production-process-supervisor/
+
+DEPLOYMENT SCENARIO:
+
+React (dragoon can be the server starter, by adding commands to dragoon)
+https://github.com/marcj/php-pm
+http://marcjschmidt.de/blog/2014/02/08/php-high-performance.html
+HHVM
+Mongrel2 instead of Nginx (for fault tolerance and resending messages)
+Add in multithreading and coroutines
+Now PHP-PM just needs process monitoring and restarts and managing memory.
+http://software-gunslinger.tumblr.com/post/48215406921/php-is-meant-to-die-continued
+
+No more configuration of big frameworks.
+Code is configuration. No system libraries.
+The framework is your app. The app is your framework.
