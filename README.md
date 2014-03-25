@@ -207,3 +207,50 @@ http://software-gunslinger.tumblr.com/post/48215406921/php-is-meant-to-die-conti
 No more configuration of big frameworks.
 Code is configuration. No system libraries.
 The framework is your app. The app is your framework.
+
+https://github.com/c9s/GenPHP for Generating PHP code
+
+Transformers also enforce the integrity of data by typecasting every possible variable. You can be sure and remind yourself what the types of the data is!
+
+Model entity architecture: https://github.com/laravelbook/ardent (How would it fit in with Verify? BeforeFilter + Validation + AfterFilter (Coercing/Casting/Moulding) rules.) Seems automatic hydration is pretty cool, but it introduces overhead to the architecture.
+
+CLI can run watch + processes such as mess detector, lint, style checker, and also benchmarking. It can benchmark based on API end point, or running particular controller/model/transformer (in fact automated tests should profile and benchmark everything, since they are ones running the code). Watch changed files and launch these tasks. Can run simultaneous queries. Watch can also learn from logs. So debug logs can be sent to the watcher. "dragoon watch debug"
+
+PHP PDepend
+PHP Copy/Paste Detector
+PHP Analyzer
+
+It should use things like Mondrian..etc to figure out dependency graphs if your framework.
+
+Memory benchmarking will be important in detection of any memory leaks. Especially if you can drill down.
+
+Then use ASCII graphs!
+
+Benchmarking:
+https://github.com/almadomundo/benchmark
+https://github.com/polyfractal/athletic
+https://github.com/BKWLD/reporter
+
+https://github.com/facebook/watchman (use with Symfony Process)
+
+Use psysh and with the rc.php. This allows you make psysh when at the current working directory (getcwd()) of the project, it can use the loader to autoload everything. Allowing you to have REPL for the entire project. This means you can quickly test new code or libraries in the context of your app. No more creating test files or test controllers. Just straight up launch psysh, if the Bootstrap + Autoloader is available, just go and load them up! Then let's say you want test out if some code works in isolation. Then you load your libraries, and away you go. Let's you write a model, and you have a function in that model that don't know if it will work, then go ahead and straight up test it. It's a goldmine! Actually the psysh shell should bring in the bootstrapper. Basically this means any Autoloaders (Composer + Custom autoloaders), and an IOC that allows you to quickly instantiate any class. Also any bootstrapping logic might be good.
+
+Also collections should have metadata, so you acquire information about the collection, but the collection itself. The transformers can embed this metadata. The collection metadata can be on the array itself. Like Object[1, 2...etc] but also Object.metadata ...etc. Arrays are objects in Javascript. Most important thing is that a collection is a array of objects, of which the object would be a single entity if the resource was requested as one GET operation.
+
+Involve EventBus, Hooks, Interceptors and AOP into the framework, allowing you to do things at certain times. Such as hooking to a database update/create and running some other code. Even logging can be intercepted. It also makes the framework pluggable: http://symfony.com/doc/current/components/event_dispatcher/introduction.html  Logging is not part of the logic, so you can inject logging into wherever it's needed.
+
+Client side code should be in a separate repository to the server side code. The server side exposes and API. The client side consumes it. However because a single repository means a single application, the server side repo needs some way of connecting to the client side in order to serve up the initial client side application. There are 3 ways of doing this: Deployment adapter (that brings the 2 together), Git Submodules, Git Subtree or private dependency manager. I believe Git Subtree in the short term will be the most useful. Here is how you do subtree: http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/
+In the future there needs to be a private dependency manager that should be super easy to use.
+The server repo is still the master repo though, because the server repo is the one that needs to be deployed.
+Bower might be good as a private repo thingy. But I don't want to run a bower registry! So I use simply something that can pull in private projects. But remember the client side repository does not all the dependencies either, so we need to pull in it's bower's dependencies... etc and potentially NPM dependencies. So... maybe we if only have client side dependencies as bower, and testing dependencies can be NPM on the client side.
+Build scripts would be part of the server side repository.
+
+We need to integration fault tolerant programming using:
+
+https://github.com/eloquent/asplode
+PHP Try type
+PHP Option type
+Phystrix
+Perhaps AOP can help here too.
+
+Auryn DI should use caching: https://github.com/rdlowrey/Auryn/issues/53
