@@ -254,3 +254,51 @@ Phystrix
 Perhaps AOP can help here too.
 
 Auryn DI should use caching: https://github.com/rdlowrey/Auryn/issues/53
+
+Any automated task needs to correctly ascertain if the job is done on a development server. In this way they should conflict with the actual production server. Especially if it's calling external APIs. If external APIs have a testing parameter, then use it. If not, you must mock the response. Otherwise automated jobs such as cron should not be launched on the dev server.
+
+Ideas regarding new framework:
+
+IOC (
+    Router (
+        Kernel + MW - Content-Negotiation, Main Requests, Sub Requests (see hhvm), Redirect for Sockets, Global Exception Handling, Status Codes based on FSM, FSM can be called by any layer to change the status and morph it to whatever, Request Kill Timeout (
+            Controller - Model Management, Transactions, Multithreading, Async, Simultaneous, Forking, Coroutines, Task Scheduler, Promises, Storage Adapter Choice, Initiating SubRequests for Embedded Data/Composition (
+                Validator + Filter + Business Rules (
+                    Model + Modules + Libraries + Workers (
+                        Transformers (
+                            LINQ + Business Rules (raw data gets turned into appropriate format)
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+
+Global transformations such as embedding, composition and HATEOAS and Content Negotation (language/format) can be done either in the Kernel MW or in a Master Transformer (inherited transformer) or Traits..etc. It depends. If the entire APP will always be RESTful..etc, then in the Kernel MW might be better. If however some parts of the app does not use those aspects, then a Master Transformer might be better.
+
+URLs a directive (functional) based DSL for controlling a REST API through REST methods, HATEOAS, query parameters and matrix parameters. Will support embedding cross referenced data via subrequests, and transformations (operations) of the data by forcing LINQ.
+
+new Controller ( new Validator ( new Model (new Transformer ) ) ); (each thing will be a callable class)
+
+return $validate($data);
+return $model($data);
+return $transformer($data);
+return $data;
+
+URLS need to allow:
+
+0. Constraints (limit/offsetting data)
+1. Transformation (transformation of data)
+2. Composition (cross referenced unrelated data)
+3. Embedding (cross referenced embedded data)
+4. Payload (GET query param or POST payload)
+5. Direction (Path Segments)
+
+When adding new resources:
+
+1. Create the Controller and subsequent wrappings.
+2. Load it into the IOC (traversal of needed tools)
+3. Register it as part of the Router
+
+(Use the Dragoon cli tool to automate this.)
