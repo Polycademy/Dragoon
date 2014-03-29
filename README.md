@@ -262,18 +262,28 @@ Ideas regarding new framework:
 IOC (
     Router (
         Kernel + MW - Content-Negotiation, Main Requests, Sub Requests (see hhvm), Redirect for Sockets, Global Exception Handling, Status Codes based on FSM, FSM can be called by any layer to change the status and morph it to whatever, Request Kill Timeout (
-            Controller - Model Management, Transactions, Multithreading, Async, Simultaneous, Forking, Coroutines, Task Scheduler, Promises, Storage Adapter Choice, Initiating SubRequests for Embedded Data/Composition (
+            Controller - Model Management, Transactions, Multithreading, Async, Simultaneous, Forking, Coroutines, Task Scheduler, Promises, Storage Adapter Choice, Initiating SubRequests for Embedded Data/Composition, MapReduce (map out tasks to models, reduce to single result with a transformer) (
                 Validator + Filter + Business Rules (
                     Model + Modules + Libraries + Workers (
-                        Transformers (
-                            LINQ + Business Rules (raw data gets turned into appropriate format)
-                        )
+                        Do the work and return results
                     )
+                )
+                Transformers (
+                    LINQ + Business Rules (raw data gets turned into appropriate format)
                 )
             )
         )
     )
 )
+
+WE HAVE NOT FIGURED OUT SUBRESOURCES, PERHAPS NESTED RESOURCES via NESTED controllers. HMVC? Remember 4 different resources: 1. Resources
+2. Embedded Resources (cross referenced data)
+3. Composited Resources (combined data, not necessary embedded, basically transformed data)
+4. Subresources (data that exists only in relation to a parent resource)
+
+Whats interesting is the when querying for a subresource, that subresource is the only one that is interesting to the client. We are not embedding a subresource into the parent resource, the subresource stands along as the response output. This means a chained path is just that, it's just directions to find out the subresource. Therefore any HMVC solution would not be using the parent resource's controllers, only the subresource's controller, and the subresource controller will need resolve the path and their ids to see if there is a relevant resource. In order to make the path finding quicker and more efficient, the path finding is not separated between the resources, but concentrated in the subresource, there'll need to be a query construction that allows you to traverse the ownership graph. The specific way to do this is left to the programmer. For example MySQL has a number of ways to represent hierarchal data: http://www.slideshare.net/billkarwin/models-for-hierarchical-data 
+A cool little thing would be a way to build a single pathfinding chain from parent controllers to child controller, and then running this query. Perhaps LINQ might help here too... But that might be sufficiently complex too.
+http://karwin.blogspot.com/2010/03/rendering-trees-with-closure-tables.html Closure table method seems the best!
 
 Global transformations such as embedding, composition and HATEOAS and Content Negotation (language/format) can be done either in the Kernel MW or in a Master Transformer (inherited transformer) or Traits..etc. It depends. If the entire APP will always be RESTful..etc, then in the Kernel MW might be better. If however some parts of the app does not use those aspects, then a Master Transformer might be better.
 
@@ -302,3 +312,17 @@ When adding new resources:
 3. Register it as part of the Router
 
 (Use the Dragoon cli tool to automate this.)
+
+Fault Tolerant Programming
+
+We can use the PHP-Try type and Phystrix.
+The question is what do we do with the fallback?
+I think every task should be put on a scheduler.
+Every networked task such as sending an email.. etc needs to be put on a scheduler.
+This way the scheduler is the one that figures out the fallbacks whether this is in contacting fallback servers, or waiting to try again later, or storing the task as a failed task in the log.
+The application should always walk the happy path. We need to isolate against doing failure tracking, and make the creation of apps more streamlined.
+Now a problem comes is when the task cannot be scheduled for later, we need to do something, and we need to see the results immediately. In that case, having the fallback in the app is acceptable.
+Here's an idea, if the task has to be synchronous, such that if task A succeeded, then do task B, then the scheduler needs to have this flexibility. Obviously CRON is out. But perhaps Chronus has more flexibility in these cases? Just like PHP-Try, Chronus should be able to follow through a task chain.
+So I think failure handling needs to be abstracted as much as possible, so that a particular program has only one focus, to succeed. However sometimes the program needs to handle failure if it has a client that demands to know whether it succeeded or not and act accordingly.
+
+Restful actions http://stackoverflow.com/questions/16877968/call-a-server-side-method-on-a-resource-in-a-restful-way
