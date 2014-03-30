@@ -326,3 +326,9 @@ Here's an idea, if the task has to be synchronous, such that if task A succeeded
 So I think failure handling needs to be abstracted as much as possible, so that a particular program has only one focus, to succeed. However sometimes the program needs to handle failure if it has a client that demands to know whether it succeeded or not and act accordingly.
 
 Restful actions http://stackoverflow.com/questions/16877968/call-a-server-side-method-on-a-resource-in-a-restful-way
+
+Dragoon is a schema, it's a vision. The implementation currently is in PHP. But the concept should trascend language, and should be implemented as a schema in order to allow multilanguage implementations. There'll be API differences, differences in idioms, but because the structure is the same, and that it works the same way, things should be rapidly reusable and transportable.
+
+Investigate Laravel Facade pattern for Syntactic Sugar. Also Dragoon still needs to be dependency injectable.
+
+Investigate Functional Reactive Programming.
