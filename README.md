@@ -332,3 +332,8 @@ Dragoon is a schema, it's a vision. The implementation currently is in PHP. But 
 Investigate Laravel Facade pattern for Syntactic Sugar. Also Dragoon still needs to be dependency injectable.
 
 Investigate Functional Reactive Programming.
+
+In terms of using this as a schema for frameworks. You need to investigate Node DI/IOC: http://www.mariocasciaro.me/dependency-injection-in-node-js-and-other-architectural-patterns
+Scatter seems good: https://github.com/mariocasciaro/scatter
+
+USE THIS for Exceptions: https://github.com/freddiefrantzen/e2ex
