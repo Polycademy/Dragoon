@@ -1,7 +1,12 @@
 Dragoon
 =======
 
-Dragoon is an experimental framework.
+Dragoon is an experimental API framework. It's focused on bringing the concepts of FBP (flow based programming), AOP (aspect oriented programming), FRP (functional reactive programming), CSP (communicating sequential processes), CPS (continuation passing style), immutable data structures, fault tolerant dependencies, ubiquitous concurrency, service oriented dependent interfaces, inversion of control, multi-paradigm (async/sync/coroutines) framework, test/behaviour driven optimisation and implementing them in PHP. However the end result should be a framework interface that can be adapted to any general purpose language. One of the driving philosophies is that the front end is just another service and that it should be a separated project (literally repositories) to the backend, and that they should communicate over both asynchronous and synchronous communication protocols (that are able to upgrade or downgrade easily).
+
+Nothing is currently usable right now. Still in pre-omega phase.
+
+Routing Structure
+-----------------
 
 Index.php is the FC.
 Router.php is a master middleware which calls in the other middleware.
@@ -12,207 +17,80 @@ The Kernel needs to the Loader so it can build up a stack of middleware. (pre mi
 The Router needs to the Kernel so it rout any URL paths to the controller, while running through the middleware
 stack(A, B, C) -> Controller -> stack(X, Y, Z)
 
-
-
 Router
     -> /
         -> Stack(A, B, C, D)->IOC->Stack(X, Y, Z)
 
-Begin providing all dependencies:
+Use FastRouter
 
-IOC, Symfony Config or the other configuration file. Symfony Command, HTTP Kernel, HTTP Foundation. PHPDaemon or AMP, Artax/Guzzle. StackPHP's builder. PHP Asset Loader, PHP Twig. Testing frameworks like Codeception.
+Build Tools
+-----------
 
-You could have a cached folder too, but that's dependent on the project.
+Gulp.js for streamed and watched builds.
 
-Gruntfile should optimise autoload, actually use GulpJS instead! Or Phake!
+Object Construction
+-------------------
 
-Input data may have formatting errors. We should deal with that.
+IOC - Auryn build object graph at the front. Perhaps we have intermediate factories so that it's not all in one bootstrapped superclass. Or we could use traits to build related objects.
+Use Options Resolved for complex options in classes -> http://symfony.com/doc/current/components/options_resolver.html
 
-Priority: Find a good ORM that is PDO based:
+Dragoon uses PSR-4. It has it's own autoloader. But Composer can be used to.
 
-Choose:
+Persistent State Manipulation
+-----------------------------
 
-1. http://j4mie.github.io/idiormandparis/
-2. http://propelorm.org/
-3. http://www.doctrine-project.org/
+Temporal database. Functional databases. ORM. Data hydration into correct models.
+
+Storage should be abstracted into drivers, these drivers are therefore declarative. Moving the storage access logic out of the flow.
+
+This is all about converting the data model stored into a data model workable in PHP.
+
+http://www.doctrine-project.org/
+https://github.com/auraphp/Aura.Marshal
+https://github.com/thephpleague/fractal
+LINQ implementations.
 
 Conditions: Flexibility of SQL databases. Elegant syntax. Fixing up the affected rows. Exposing the PDO object instance.
 
+Standards
+---------
+
 Follows PSR as closely as possible. Mixed case is fine. Most parts will be in underscore, but some API will obviously utilise camelCase. All data properties will always be in camelCase to match the front end javascript standard.
 
-Choose one HTTP requests library:
+Communications
+--------------
 
-1. https://github.com/guzzle/guzzle - Most full featured and complex
-2. https://github.com/rmccue/Requests - Quite a nice and simple syntax
+Requests + Artax + Phystrix
 
-Do not use Buzz (<- lacks a lot of features) or Httpful (<- bad at testing)
+Serializing
+-----------
 
 Use Serializer -> http://symfony.com/doc/current/components/serializer.html for serialising objects.
 
+DSL and Math DSLs
+-----------------
+
 Use Expression Language for DSL -> http://symfony.com/doc/current/components/expression_language/introduction.html#how-can-the-expression-engine-help-me
 
-Use Options Resolved for complex options in classes -> http://symfony.com/doc/current/components/options_resolver.html
+Data Structures
+---------------
 
-When creating API constructs, one should follow this style: https://github.com/noetix/pin-php
-Basically the entire the API structure is mapped to an hierarchical namespaced object structure.
-Note that one could do multiple requests individually, or provide convenience objects that do a multitude of requests at the same time.
+* https://github.com/schmittjoh/php-option
+* https://github.com/asm89/php-try
+* https://github.com/morrisonlevi/Ardent
 
-Dragoon uses PSR-4. It has it's own autoloader. But Composer can be used to.
-It needs a site template generator that is a binary executable that can create project with any global namespace.
+Automation
+----------
 
-Perhaps the error object being thrown can contain both the HTTP status code and the Log error status codes! Or there needs to be some sort of translation.
+It needs a project template generator that is a binary executable that can create project with any global namespace.
 
-Benchmarking: https://github.com/devster/ubench
-DateTime: https://github.com/briannesbitt/Carbon
-Asset Management: https://github.com/kriswallsmith/assetic (probably good for template scripts)
-Verify: Validation
-Filtering (combine with Verify) https://github.com/ircmaxell/filterus
-Templating - https://github.com/php-loep/Plates, Mustache, Twig
-File Management - https://github.com/KnpLabs/Gaufrette & https://github.com/thephpleague/flysystem
-Payment - https://github.com/adrianmacneil/omnipay
-API Billing & Throttling - https://github.com/adrianmacneil/omnipay
-Uploads - https://github.com/codeguy/Upload & Downloads - Download Controller
-XSS - https://github.com/ezyang/htmlpurifier
-Shell Manipulation - https://github.com/MrRio/shellwrap
-Geolocation - https://github.com/mjaschen/phpgeo & https://github.com/thephpleague/geotools
-Colour Manipulation - https://github.com/mikeemoo/ColorJizz-PHP
-Data Generator - https://github.com/fzaninotto/Faker
-HTTP Requests - https://github.com/rmccue/Requests OR Guzzle OR Artax (for non curl)
-Utility - https://github.com/Anahkiasen/underscore-php OR http://brianhaveri.github.com/Underscore.php/
-ORM - Propel or Doctrine! Proper transaction and nested transactions support are a must. Transactions begin from the Controller and Models. If you're using Propel or Doctrine, they bundle migrations directly. Using Propel use getConnection() to extract PDO connection: https://github.com/propelorm/Propel2/issues/509
-I recommend Doctrine for big applications as the data mapper pattern is far superior to the active record pattern. In small simple apps, use Propel. In even smaller apps just use raw PDO.
-Simple ORM - https://github.com/auraphp/Aura.Sql (PDO extended)
-Migrations - Phinx
-Active Record - https://github.com/j4mie/paris
-PDF - https://github.com/psliwa/PHPPdf OR https://github.com/KnpLabs/snappy
-Image Manipulation - https://github.com/avalanche123/Imagine OR http://phpimageworkshop.com/
-Routing - https://github.com/chriso/klein.php
-Logging - Monolog
-Middleware - SnapSearch for HTML Interception
-Authentication & Authorisation - PolyAuth
-Documentor - ApiGen or PHPDocumentor
-HTTP Kernel - Symfony Requests
-CLI App - Symfony Console
-Configuration - Configula
-Class Creation - Symfony Options Resolver
-DI & IOC - Auryn
-Statistics - https://github.com/mcordingley/PHPStats
-Functional Primitives - https://github.com/lstrojny/functional-php
-API Throttling - https://github.com/davedevelopment/stiphle AND https://github.com/danapplegate/leaky-bucket-php
-API Billing - ?? none yet!
-API Usage Tracking - ??
-Federated Logging - http://graylog2.org/ OR any of the commercial loggers and https://github.com/bzikarsky/gelf-php
-Status Page - ??
-Internationalisation - intl extension (http://au1.php.net/manual/en/intro.intl.php) OR Symfony Translator http://symfony.com/doc/master/book/translation.html AND https://github.com/dotroll/I18N
-Representing Money - https://github.com/ikr/money-math-php for BIG money and https://github.com/mathiasverraes/money for Cents based money
-Build Automation - https://github.com/gulpjs/gulp OR Grunt OR https://github.com/jaz303/phake (Rake/Make)
-Math - https://github.com/moontoast/math & https://github.com/moontoast/math/issues/3#issuecomment-33243171 OR https://github.com/powder96/numbers.php
-Math Equations - https://github.com/rezzza/Formulate & https://github.com/mormat/php-formula-interpreter
-Statistics - https://github.com/mcordingley/PHPStats
-Multithreading - https://github.com/krakjoe/pthreads
-LINQ - https://github.com/akanehara/ginq OR https://github.com/Athari/YaLinqo OR https://github.com/Blackshawk/phinq
-Markup or TextFormatting (forums) - https://github.com/s9e/TextFormatter
-Output Filtering (XSS/Escaping) - http://htmlpurifier.org/
-Encryption - https://github.com/phpseclib/phpseclib
-More internationalisation and fallback classes - https://github.com/flourishlib/flourish-classes
-Nice exceptions - https://github.com/filp/whoops
-Serializable Closures (code as data) - https://github.com/jeremeamia/super_closure
-ANSI Colours - https://github.com/kevinlebrun/colors.php
-Git Project Maintenance - https://github.com/cordoval/gush
-PHP REPL - Boris
-LESS - https://github.com/mrmrs/colors
-Client Side Persistence - http://www.slideshare.net/casden/inbrowser-storage-and-me
-AngularJS Style Guide - https://github.com/mgechev/angularjs-style-guide
-Autoloader (PSR-4 and PSR-0) - https://github.com/auraphp/Aura.Autoload
-Deployment (SSH) - https://github.com/Anahkiasen/rocketeer
-Option Type - https://github.com/schmittjoh/php-option
-PHP Parsing - https://github.com/nikic/PHP-Parser
-Serializer (XML, JSON, YAML) - https://github.com/schmittjoh/serializer
-Collection Type - https://github.com/schmittjoh/PHP-Collection
-PHP Source Code Manipulator - https://github.com/schmittjoh/PHP-Manipulator (This is needed!?)
-DSL Parsers - https://github.com/schmittjoh/parser-lib & https://github.com/symfony/expression-language & https://github.com/hafriedlander/php-peg & http://www.slideshare.net/troelskn/overview-dslforphp & https://github.com/maximebf/parsec & http://stackoverflow.com/questions/3720362/what-is-a-good-parser-generator-for-php & http://stackoverflow.com/questions/13940641/implementing-a-dsl-in-php (To do this in JS: https://github.com/zaach/jison)
-Event Bus - https://github.com/igorw/evenement
-Async Task Queue - https://github.com/CoderKungfu/php-queue
-Jade for Templates - https://github.com/visionmedia/jade - this can be combined with PHP Plates for the initial template. But since all templates are client side anyway. Don't bother with plates unless you're not writing a Client side app! BTW HTML IS UGLY!
-HATEOAS - https://github.com/willdurand/Hateoas
+We need to deal with migrations and backups at this point. Migrations can exist on schema or data or both.
 
+The CLI tool will also setup configuration properties. Prevents the need to parse config directly. It can use Configula. The configuration should also be "dynamic", in that can be requested from external sources and cached? The tool could also listen on events and be activated like a daemon.
 
-Investigate - https://github.com/auraphp/Aura.Marshal
+https://github.com/schmittjoh/PHP-Manipulator to change the source code. We may need to use PHP-Parser.
 
-For everything else -> https://github.com/ziadoz/awesome-php AND http://thephpleague.com/
-
-Indent using 4 spaces for tabs.
-
-Process Management: http://blog.crocodoc.com/post/48703468992/process-managers-the-good-the-bad-and-the-ugly
-
-https://github.com/chriso/klein.php/issues/166#issuecomment-31385173
-
-USE: https://github.com/nicolas-grekas/Patchwork-UTF8 for UTF8
-
-Barcode - https://github.com/dineshrabara/barcode
-String Manipulation - https://github.com/danielstjules/Stringy
-
-OOCSS!
-http://coding.smashingmagazine.com/2011/12/12/an-introduction-to-object-oriented-css-oocss/
-
-Use PHP Fractal for data marshalling!
-
-Use: https://github.com/willdurand/Negotiation for negotiation AND READ THIS: http://stackoverflow.com/a/385216/582917
-
-Start using Pux as a router again. It supports PATCH, HEAD, OPTIONS!
-
-https://github.com/eloquent/asplode
-
-Character Encoding Issue
-------------------------
-
-There is a big problem with UTF-8 and PHP:
-
-http://www.phpwact.org/php/i18n/charsets
-http://stackoverflow.com/questions/279170/utf-8-all-the-way-through
-http://kunststube.net/encoding/
-
-Need to solve this for portability.
-
-Use composer install --no-dev during production!
-
-https://github.com/jackfranklin/pulldown - Dependencies on specific files.
-
-If we use Jade as a templating language. We could the templates and partials and compile down to one single file that can still be rendered with PHP.
-However elements should be compiled elements. Should they use Jade? Yea sure I guess. They can compile down to .html files.
-
-Angular Elements => http://benclinkinbeard.com/posts/towards-atomic-angularjs-components-with-browserify/
-https://www.npmjs.org/package/partialify
-
-PHP HIGH PERFORMANCE! (opcode cache has a problem with Rocketeer and Capistrano)
-https://support.cloud.engineyard.com/entries/26902267-PHP-Performance-I-Everything-You-Need-to-Know-About-OpCode-Caches
-
-Zero downtime for NGINX?
-
-http://blog.argteam.com/coding/hardening-node-js-for-production-part-3-zero-downtime-deployments-with-nginx/
-http://blog.argteam.com/coding/hardening-node-js-for-production-part-2-using-nginx-to-avoid-node-js-load/
-http://blog.argteam.com/coding/hardening-nodejs-production-process-supervisor/
-
-DEPLOYMENT SCENARIO:
-
-React (dragoon can be the server starter, by adding commands to dragoon)
-https://github.com/marcj/php-pm
-http://marcjschmidt.de/blog/2014/02/08/php-high-performance.html
-HHVM
-Mongrel2 instead of Nginx (for fault tolerance and resending messages)
-Add in multithreading and coroutines
-Now PHP-PM just needs process monitoring and restarts and managing memory.
-http://software-gunslinger.tumblr.com/post/48215406921/php-is-meant-to-die-continued
-
-No more configuration of big frameworks.
-Code is configuration. No system libraries.
-The framework is your app. The app is your framework.
-
-https://github.com/c9s/GenPHP for Generating PHP code
-
-Transformers also enforce the integrity of data by typecasting every possible variable. You can be sure and remind yourself what the types of the data is!
-
-Model entity architecture: https://github.com/laravelbook/ardent (How would it fit in with Verify? BeforeFilter + Validation + AfterFilter (Coercing/Casting/Moulding) rules.) Seems automatic hydration is pretty cool, but it introduces overhead to the architecture.
+Use this https://github.com/c9s/GenPHP for generated scaffolding.
 
 CLI can run watch + processes such as mess detector, lint, style checker, and also benchmarking. It can benchmark based on API end point, or running particular controller/model/transformer (in fact automated tests should profile and benchmark everything, since they are ones running the code). Watch changed files and launch these tasks. Can run simultaneous queries. Watch can also learn from logs. So debug logs can be sent to the watcher. "dragoon watch debug"
 
@@ -230,34 +108,65 @@ Benchmarking:
 https://github.com/almadomundo/benchmark
 https://github.com/polyfractal/athletic
 https://github.com/BKWLD/reporter
+https://github.com/firstrow/feature-science
 
 https://github.com/facebook/watchman (use with Symfony Process)
 
-Use psysh and with the rc.php. This allows you make psysh when at the current working directory (getcwd()) of the project, it can use the loader to autoload everything. Allowing you to have REPL for the entire project. This means you can quickly test new code or libraries in the context of your app. No more creating test files or test controllers. Just straight up launch psysh, if the Bootstrap + Autoloader is available, just go and load them up! Then let's say you want test out if some code works in isolation. Then you load your libraries, and away you go. Let's you write a model, and you have a function in that model that don't know if it will work, then go ahead and straight up test it. It's a goldmine! Actually the psysh shell should bring in the bootstrapper. Basically this means any Autoloaders (Composer + Custom autoloaders), and an IOC that allows you to quickly instantiate any class. Also any bootstrapping logic might be good.
+When adding new resources:
 
-Also collections should have metadata, so you acquire information about the collection, but the collection itself. The transformers can embed this metadata. The collection metadata can be on the array itself. Like Object[1, 2...etc] but also Object.metadata ...etc. Arrays are objects in Javascript. Most important thing is that a collection is a array of objects, of which the object would be a single entity if the resource was requested as one GET operation.
+1. Create the Controller and subsequent wrappings.
+2. Load it into the IOC (traversal of needed tools)
+3. Register it as part of the Router
 
-Involve EventBus, Hooks, Interceptors and AOP into the framework, allowing you to do things at certain times. Such as hooking to a database update/create and running some other code. Even logging can be intercepted. It also makes the framework pluggable: http://symfony.com/doc/current/components/event_dispatcher/introduction.html  Logging is not part of the logic, so you can inject logging into wherever it's needed.
+Exception Handling
+------------------
 
-Client side code should be in a separate repository to the server side code. The server side exposes and API. The client side consumes it. However because a single repository means a single application, the server side repo needs some way of connecting to the client side in order to serve up the initial client side application. There are 3 ways of doing this: Deployment adapter (that brings the 2 together), Git Submodules, Git Subtree or private dependency manager. I believe Git Subtree in the short term will be the most useful. Here is how you do subtree: http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/
-In the future there needs to be a private dependency manager that should be super easy to use.
-The server repo is still the master repo though, because the server repo is the one that needs to be deployed.
-Bower might be good as a private repo thingy. But I don't want to run a bower registry! So I use simply something that can pull in private projects. But remember the client side repository does not all the dependencies either, so we need to pull in it's bower's dependencies... etc and potentially NPM dependencies. So... maybe we if only have client side dependencies as bower, and testing dependencies can be NPM on the client side.
-Build scripts would be part of the server side repository.
+All exceptions are handled from the root.
 
-We need to integration fault tolerant programming using:
+All PHP errors are converted to the exceptions.
+
+At no point should ANY error/exception be shown to the end user. It must all be controlled.
+
+Perhaps the error object being thrown can contain both the HTTP status code and the Log error status codes! Or there needs to be some sort of translation.
 
 https://github.com/eloquent/asplode
-PHP Try type
-PHP Option type
-Phystrix
-Perhaps AOP can help here too.
 
-Auryn DI should use caching: https://github.com/rdlowrey/Auryn/issues/53
+https://github.com/freddiefrantzen/e2ex
 
-Any automated task needs to correctly ascertain if the job is done on a development server. In this way they should conflict with the actual production server. Especially if it's calling external APIs. If external APIs have a testing parameter, then use it. If not, you must mock the response. Otherwise automated jobs such as cron should not be launched on the dev server.
+Debugging
+---------
 
-Ideas regarding new framework:
+Integrated PsySH to allow interactive testing and random coding experiments.
+
+Use psysh and with the rc.php. This allows you make psysh when at the current working directory (getcwd()) of the project, it can use the loader to autoload everything. Allowing you to have REPL for the entire project. This means you can quickly test new code or libraries in the context of your app. No more creating test files or test controllers. Just straight up launch psysh, if the Bootstrap + Autoloader is available, just go and load them up! Then let's say you want test out if some code works in isolation. Then you load your libraries, and away you go. Let's you write a model, and you have a function in that model that don't know if it will work, then go ahead and straight up test it. It's a goldmine! Actually the psysh shell should bring in the bootstrapper. Basically this means any Autoloaders (Composer + Custom autoloaders), and an IOC that allows you to quickly instantiate any class. Also any bootstrapping logic might be good.
+
+Agile Optimisation
+------------------
+
+Tests are constructed 2 levels: behavioural/functional API tests, then class unit tests.
+
+We use a watchman to watch changed files. On each change, tests are ran. On each test performance benchmarks are ran and compared. Logs are generated. Reports are created. Reports can be temporary.
+
+Upon any kind of deployment, dependencies are locked, and autoloading is fixed.
+
+Runtime Agnostic
+----------------
+
+We should endeavour to make Dragoon workable in production with HHVM and standard PHP.
+
+Standard Library
+----------------
+
+Dragoon does not provide it's own standard library. It needs to take advantage of other people's work across the whole PHP community. See thehitlist for more.
+
+Reactive Process Flow
+---------------------
+
+Middleware layer should follow with HTTPKernal like developments. But HTTPKernel sucks, it's too Symfony focused.
+
+It will include Content-Negotiation https://github.com/willdurand/Negotiation
+
+Involve EventBus, Hooks, Interceptors and AOP into the framework, allowing you to do things at certain times. Such as hooking to a database update/create and running some other code. Even logging can be intercepted. It also makes the framework pluggable: http://symfony.com/doc/current/components/event_dispatcher/introduction.html  Logging is not part of the logic, so you can inject logging into wherever it's needed.
 
 IOC (
     Router (
@@ -305,35 +214,50 @@ URLS need to allow:
 4. Payload (GET query param or POST payload)
 5. Direction (Path Segments)
 
-When adding new resources:
+SOA Interface
+-------------
 
-1. Create the Controller and subsequent wrappings.
-2. Load it into the IOC (traversal of needed tools)
-3. Register it as part of the Router
+Dragoon's API will abide by varous service interfaces. Choose one!
 
-(Use the Dragoon cli tool to automate this.)
+HATEOAS - https://github.com/willdurand/Hateoas
+See WOAE for more ideas.
 
-Fault Tolerant Programming
+Also collections should have metadata, so you acquire information about the collection, but the collection itself. The transformers can embed this metadata. The collection metadata can be on the array itself. Like Object[1, 2...etc] but also Object.metadata ...etc. Arrays are objects in Javascript. Most important thing is that a collection is a array of objects, of which the object would be a single entity if the resource was requested as one GET operation.
 
-We can use the PHP-Try type and Phystrix.
-The question is what do we do with the fallback?
-I think every task should be put on a scheduler.
-Every networked task such as sending an email.. etc needs to be put on a scheduler.
-This way the scheduler is the one that figures out the fallbacks whether this is in contacting fallback servers, or waiting to try again later, or storing the task as a failed task in the log.
-The application should always walk the happy path. We need to isolate against doing failure tracking, and make the creation of apps more streamlined.
-Now a problem comes is when the task cannot be scheduled for later, we need to do something, and we need to see the results immediately. In that case, having the fallback in the app is acceptable.
-Here's an idea, if the task has to be synchronous, such that if task A succeeded, then do task B, then the scheduler needs to have this flexibility. Obviously CRON is out. But perhaps Chronus has more flexibility in these cases? Just like PHP-Try, Chronus should be able to follow through a task chain.
-So I think failure handling needs to be abstracted as much as possible, so that a particular program has only one focus, to succeed. However sometimes the program needs to handle failure if it has a client that demands to know whether it succeeded or not and act accordingly.
+Syntactic Sugar
+---------------
 
-Restful actions http://stackoverflow.com/questions/16877968/call-a-server-side-method-on-a-resource-in-a-restful-way
+Dragoon will create syntactic sugar where necessary, in some other languages it may not be needed. But we need ease of use and testability. This will include common operations like underscore, functional primitives, and LINQ. LINQ is required because we need a declarative way to manipulate data structures. Also superclosures for the ability to serialize code and allow code to be transportable cross-process.
 
-Dragoon is a schema, it's a vision. The implementation currently is in PHP. But the concept should trascend language, and should be implemented as a schema in order to allow multilanguage implementations. There'll be API differences, differences in idioms, but because the structure is the same, and that it works the same way, things should be rapidly reusable and transportable.
+* https://github.com/Anahkiasen/underscore-php
+* https://github.com/lstrojny/functional-php
+* Laravel's Facade Pattern
+* https://github.com/akanehara/ginq
+* https://github.com/Athari/YaLinqo
+* https://github.com/Blackshawk/phinq
+* https://github.com/jeremeamia/super_closure
 
-Investigate Laravel Facade pattern for Syntactic Sugar. Also Dragoon still needs to be dependency injectable.
+Syntactic sugar will not be dependency injected, because this would laborious. Consider them like global helpers. But they are still testable using Laravel's Facade Pattern.
 
-Investigate Functional Reactive Programming.
+Atomic Transactions
+-------------------
 
-In terms of using this as a schema for frameworks. You need to investigate Node DI/IOC: http://www.mariocasciaro.me/dependency-injection-in-node-js-and-other-architectural-patterns
-Scatter seems good: https://github.com/mariocasciaro/scatter
+This is referring to as single system, not a distributed system. Distributed systems have another problem involving CAP.
 
-USE THIS for Exceptions: https://github.com/freddiefrantzen/e2ex
+http://en.wikipedia.org/wiki/CAP_theorem
+ACID
+
+Transactions in Dragoon need to operate of the controller layer. Not at the model or worker layer. If multiple controllers will be brought together to do work, then transactions need to be initiated at the middleware layer. Any further, then the client will need to bring up their own transaction model or implement distributed transactions.
+
+UTF8 Compliant
+--------------
+
+Dragoon needs to be fully UTF-8 compliant and internationalisation enabled.
+
+https://github.com/nicolas-grekas/Patchwork-UTF8
+https://github.com/danielstjules/Stringy (this will be implemented as syntactic sugar)
+
+Separated Client Side
+---------------------
+
+Client side code should be in a separate repository to the server side code. The server side exposes and API. The client side consumes it. However because a single repository means a single application, the server side repo needs some way of connecting to the client side in order to serve up the initial client side application. There are 3 ways of doing this: Deployment adapter (that brings the 2 together), Git Submodules, Git Subtree or private dependency manager. I believe Git Subtree in the short term will be the most useful. Here is how you do subtree: http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/
