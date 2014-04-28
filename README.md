@@ -75,6 +75,10 @@ Use Expression Language for DSL -> http://symfony.com/doc/current/components/exp
 Data Structures
 ---------------
 
+We need proper data structures in programming. I believe static typing is superior to loose typing. I also believe that typing for most purposes should be simple and reusable. They should be able to prevent errors!
+
+* http://linepogl.wordpress.com/2011/03/15/a-php-maybe-monad-2/
+* http://poefke.nl/code/php-option-maybe/
 * https://github.com/schmittjoh/php-option
 * https://github.com/asm89/php-try
 * https://github.com/morrisonlevi/Ardent
