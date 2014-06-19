@@ -265,3 +265,106 @@ Separated Client Side
 ---------------------
 
 Client side code should be in a separate repository to the server side code. The server side exposes and API. The client side consumes it. However because a single repository means a single application, the server side repo needs some way of connecting to the client side in order to serve up the initial client side application. There are 3 ways of doing this: Deployment adapter (that brings the 2 together), Git Submodules, Git Subtree or private dependency manager. I believe Git Subtree in the short term will be the most useful. Here is how you do subtree: http://blogs.atlassian.com/2013/05/alternatives-to-git-submodule-git-subtree/
+
+Read Only Maintenance
+---------------------
+
+This is better than maintenance page.
+
+Will need client side operations to block post, put, patch, delete. But allow logout, but not login.
+
+Can do this on router level, need to notify any non idempotent actions with read only maintenance status. This should allow clientside to react.
+
+Add admin page with just controls. Admin page widgets?
+
+Certain actions may be allowed such as logging read count, but they must be partitioned, not part of the same DB. Also you dual set to readonly. Such as database and router.
+
+But what about dynamic services like the SnapSearch robot? I think that will need to be shutdown too.
+
+In some cases, the database may have failed, or network failure. In that case the front end can request from a static mirrored cache that acts as primary backup. Essentially a backup server which is set to readonly.
+
+Swoole
+------
+
+Make this work with Swoole! One day we won't need PHP-FPM.
+
+Composable RESTful RPC
+----------------------
+
+REST is essentially a form of constrained RPC with a bunch of rules. While these rules are great as a standard of resource communication, they often fall flat when it comes to more complex requirements. Here are somethings we need to allow a more flexible API creation:
+
+1. Transparent upgrade/downgrade between stateless and stateful connections. That is an HTTP request upgrades to WebRTC (preferred over WebSockets) and downgrade the HTTP request.
+2. Transparent encoding and decoding of data whether it is in readable text form or binary. So if we're transferring binary over readable text, we need to use base 91.
+3. Transparent support for streaming, this relates to stateless/stateful conenctions.
+4. Composable APIs via Promise pipelining and RESTful promises. This means we take ideas from Cap'n Proto's promise pipelining "time travel" RPC. This means users can still implement simple API methods corresponding to RESTful resources, but there's support for subrequests and subresources, and a promise pipelining abstraction that allows one client call to bring together multiple API calls and merge their results, or pass one result into another result, in a functional declarative way. Perhaps it's possible for RESTful RPC to define macro templates to be passed from client to server. Imagine where the client can send a macro template in its message body or URL segments/query parameters, which allows one to perform API operations like using one call to map out to multiple calls and then reduce to a single resource. Or using one call to pipeline the dataflow from one function to another.
+
+```
+                                                                                                          THIS IS A SINGLE PROGRAM.                                                           
+                                                                                                          DATAFLOW OCCURS INSIDE IT.                                                          
+                                                                                                          OF COURSE THE CLIENT DOESN'T KNOW                                                   
+                                                                                                          ABOUT THE SERVER'S UPSTREAM DEPENDENCIES.                                           
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+                                                                                                                                                                                              
+                                                                                                                   +---------+                           Dataflow                             
+                                                                 Mapped Subrequests                                |         |                           Pipelining                           
+                                                                                    +--------------------------->  |   λ     | +-------------------+                                          
+                                                                                    |                              |         |                     |                                          
+                                                                                    |                              +---------+                     |                                          
+                                                              +---------------------+                                                              |                                          
+                                                              |                                                                                    |                                          
+                                                              |                                                                                    |                                          
+                                                              |                                                                                    |               +-----------+              
+                                                              |                              These are just API     +---------+                    |               |           |              
+                                                              |                              "endpoints"            |         |                    |               | Use Macro |              
+                                                              |                              "methods"              |   λ     | +------------------------------->  | Template  |  +----------+
+                                                              |                              "procedures"           |         |                    |               |           |             |
++-----------+                                                 +                              "resources"            +---------+                    |               +-----------+             |
+|           |    Declarative Expression Graph                                                "whatever"                                            v                                         |
+|           |                                      +------------+                                                            ^                                           ^   ^               |
+|           |                                      |            |                                                            |              +-----------+                |   |               |
+|  Client   | +-------------------------------->   |  Composer  |   +---------------------+                                  |              |           |                |   |  Reduce       |
+|           |                                      |            |                         |                                  |              |    λ      |                |   |  Transformer  |
+|           |                                      +------------+                         |                     +---------+  +------------+ |           |                |   |               |
+|           |         Also contains:                                                      |                     |         |                 |           |                |   |               |
++-----------+         Macro Template                                                      |                     |         |                 +-----------+                |   |               |
+                                                           +                              +------------------>  |   λ     |                                              |   |               |
+        ^                                                  |                                                    |         | +--------------------------------------------+   |               |
+        |                                                  |                                                    +---------+                                                  |               |
+        |                                                  |                                                                                                                 |               |
+        |                                                  |                                                                                                                 |               |
+        |                                                  |                                                                                                                 |               |
+        |                                                  |                                                                                                                 |               |
+        |                                                  |                                                                                                                 |               |
+        |                                                  |                                                                                                                 |               |
+        |                                                  +--------------------------------+                               +-----------+                                    |               |
+        |                                                                                   |                               |           |                                    |               |
+        |                                                                                   |                               |    λ      |                                    |               |
+        |                                                                                   +-----------------------------> |           | +----------------------------------+               |
+        |                                                                                                                   |           |                                                    |
+        |                                                                                                                   +-----------+                                                    |
+        |                                                                                                                                                                                    |
+        |                                                                                                                                                                                    |
+        +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+                                                                                                                                                                                              
+                                                                            Response                                                                                                          
+
+```
+
+But what can we use do such a declarative expression graph? And how would our Composer work in order to perform map reduce operations or dataflow pipelining?
+
+Anyway thus big programs are created by little programs, and it's turtles all the way down.
+
+Note that the whole map reduce concept up there does not necessarily mean all the functions are calculated in parrallel. They could be processed sequentially, but they might be parrallel, who knows? The client doesn't need to know the implementation specifics. If we're talking about PHP, such a thing might be done via real multithreading using pthreads, or subprocesses actually launching subinstances similar to HHVM. Or just doing each sequentially in normal PHP using subrequests similar to HTTPKernel. Or the composer could be moved to the client side instead of the server side, and the client would be the one sending multiple requests. This does mean increased network load however, and is often what is used when the server is not very intelligent.
+
+HATEOAS is somewhat similar but also supports discoverability.
+
+Another key consideratio is this maps well to capabiility based security or RBAC security. However one has to make a decision as to whether the API fails hard or fails soft. Or maybe that concern is shifted to the client. Fail hard means if any resources or lambda refused to cooperate due to a lack of security, we fail the whole request. Whereas fail soft is you just ignore it and continue on. This has the implication for network requests, whether the request is strict or not strict with regards to a failure over the network. I think this depends on whether the task is meant to be atomic and transactional or not. So I guess it's all about ACID guarantee or not.
+
+Anyway:
+
+1. http://en.wikipedia.org/wiki/Function_composition_%28computer_science%29
+2. http://en.wikipedia.org/wiki/Monad_%28functional_programming%29
+3. http://en.wikipedia.org/wiki/Monad_%28functional_programming%29
+
+So we have a new thing called ASCID transactions. Atomic Secure Consistent Isolated Durable.
