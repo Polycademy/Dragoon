@@ -15,23 +15,27 @@
 		"patchwork/utf8": "~1.1",
 		"rdlowrey/auryn": "~0.12",
 		"nikic/fast-route": "~0.1",
-		"caseyamcl/configula": "~2.2",
+		"illuminate/config": "~4.2",
 		"monolog/monolog": "~1.7",
 		"symfony/http-foundation": "~2.4",
 		"jms/serializer": "~0.14",
-		"phpseclib/phpseclib": "~0.3.6"
+		"phpseclib/phpseclib": "~0.3.6",
+		"lisachenko/go-aop-php": "~0.4",
+		"symfony/console": "~2.4",
+		"react/react": "~0.4"
 	},
 	"require-dev": {
-		"codeception/codeception": "~1.8",
+		"codeception/codeception": "~2.0",
 		"squizlabs/php_codesniffer": "~1.5",
-		"fabpot/php-cs-fixer": "~0.4",
-		"phpmd/phpmd": "~1.5",
-		"phploc/phploc": "~2.0.5"
+		"fabpot/php-cs-fixer": "~0.5",
+		"phpmd/phpmd": "~2.0",
+		"phploc/phploc": "~2.0"
 	},
 	"suggest": {
 		"ext-intl": "Use Intl for internationalisation",
 		"ext-iconv": "Use iconv for character set conversions",
-		"ext-mbstring": "Use Mbstring for for utf-8 operations"
+		"ext-mbstring": "Use Mbstring for for utf-8 operations",
+		"ext-pcntl": "Support running Dragoon as a daemon server on Unix systems"
 	},
 	"config": {
 		"bin-dir": "bin/"

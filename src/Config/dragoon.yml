@@ -1,0 +1,16 @@
+# PHP system runtime settings
+system:
+    # code
+    short_open_tag: On # we should allow <? ?> to be used!
+    default_charset: "UTF-8"
+    # system
+    memory_limit: 512M # our apps are doing alot these days right?
+    max_execution_time: 160 # 2.66 minutes
+    # communciations
+    max_input_time: 220 # some internet connections are slow
+    upload_max_filesize: 10M # you should be AJAX to upload big files anyway
+    post_max_size: 20M # needs to be bigger than upload_max_filesize
+    # xdebug these settings allow us to see a full var_dump()!
+    xdebug.var_display_max_depth: -1
+    xdebug.var_display_max_children: -1
+    xdebug.var_display_max_data: -1

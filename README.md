@@ -3,10 +3,46 @@ Dragoon
 
 Dragoon is an experimental API framework. It's focused on bringing the concepts of FBP (flow based programming), AOP (aspect oriented programming), FRP (functional reactive programming), CSP (communicating sequential processes), CPS (continuation passing style), immutable data structures, fault tolerant dependencies, ubiquitous concurrency, service oriented dependent interfaces, inversion of control, multi-paradigm (async/sync/coroutines) framework, test/behaviour driven optimisation and implementing them in PHP. However the end result should be a framework interface that can be adapted to any general purpose language. One of the driving philosophies is that the front end is just another service and that it should be a separated project (literally repositories) to the backend, and that they should communicate over both asynchronous and synchronous communication protocols (that are able to upgrade or downgrade easily).
 
-Nothing is currently usable right now. Still in pre-omega phase.
+Nothing is currently usable right now. Still in pre-alpha phase.
 
 Routing Structure
 -----------------
+
+Server (daemon loop)
+    -> records HTTP requests (asynchronously) (initiates Front Controller)
+        -> HTTP requests are converted to HTTP Foundation
+            -> HTTP Foundation is pipelined into middleware pipe
+                -> Middleware is piped to Composer (Router)
+                    -> Router hits the Controller
+                        -> Controller brings together all the modules to do work
+                            -> Templater uses Macro Template + URL DSL
+                                -> Construct Response
+                            <- End Tmplaterr
+                        <- End the controller
+                    <- Finish Routing
+                <- Reponse middleware pipe
+            <- Converter to HTTP Foundation Response
+        <- Response object
+    <- outputs response
+
+External Server Eventloop + FastCGI
+    This then just starts at the HTTP Foundation level entering into the Front Controller
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Index.php is the FC.
 Router.php is a master middleware which calls in the other middleware.

@@ -1,20 +1,50 @@
 <?php
 
+namespace Dragoon\Bootstrap;
+
+use Patchwork\Utf8\Bootup as Utf8;
+use Dragoon\Bootstrap\Config;
+use Dragoon\Bootstrap\Loader;
+use Dragoon\Bootstrap\Kernel;
+
 /**
- * Initial configuration for the PHP runtime. This can be used for ini_set(), timezones and UTF-8 configuration
+ * Initialise the Application.
  */
 class Initialise{
 
-    public static function init(){
+    public static function init () {
 
         //configuring PHP for utf-8
-        \Patchwork\Utf8\Bootup::initAll();
-        \Patchwork\Utf8\Bootup::filterRequestUri(); //redirects to an UTF-8 encoded URL if it's not already the case
-        \Patchwork\Utf8\Bootup::filterRequestInputs(); //normalizes HTTP inputs to UTF-8 NFC
+        Utf8::initAll();
+
+        //load the configuration
+        $config = new Config;
+
+        //error level
+        error_reporting(constant($config->get('error_level'))); //should be E_ALL
+
+        //php runtime configuration (ini set)
+        self::runtimeConfig($config);
 
         //timezone
-        date_default_timezone_set('UTC');
+        date_default_timezone_set($config->get('timezone')); //should be UTC
+
+        //IOC Container
+        $loader = new Loader;
+
+        //Middleware Kernel
+        $kernel = new Kernel($loader);
+
+        return $kernel;
         
+    }
+
+    protected static function runtimeConfig (Config $config) {
+
+        //take the config, and set the PHP runtime settings
+
+        //some settings should not be set if the SAPI is CLI, like max execution time, or any of the limits
+
     }
 
 }

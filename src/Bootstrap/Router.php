@@ -3,39 +3,34 @@
 namespace Dragoon\Bootstrap;
 
 use Dragoon\Bootstrap\Kernel;
+use Symfony\Component\HTTPFoundation\Request;
+
+//This is the Composer that understands the Macro Template/DSL
 
 class Router{
 
 	protected $kernel;
 
-	public function __construct(Kernel $kernel){
+	public function __construct (Kernel $kernel) {
 
 		$this->kernel = $kernel;
 
 	}
 
-	protected function register($router){
+	//in the future, we can have a generic request object representing any kind of encoded message, pass this down the middleware stack
+	public function routeHttp (Request $request) {
 
-		//outer to inner
-		$this->loader->middleware([
-			'Yearbook\Middleware\Output'
-		]);
+		//take the request's path
+		//and route through a particular stack
 
-		//BIG PROBLEM WITH KLEIN: (simultaneous route matching)
-		//respond to all! (but there's no terminate upon first match) SEE: https://github.com/chriso/klein.php/issues/156
-		$router->respond($this->controller('Yearbook\Controllers\Home'));
 
-		$router->dispatch();
+		//this neeeds to return the response object
 
 	}
 
-	protected function controller($controller, array $middleware = null){
+	public function routeWs () {
 
-		return function($request_parameters) use ($controller, $middleware){
-
-			$this->loader->kernel($controller, $request_parameters, $middleware);
-
-		};
+		//route web socket objects
 
 	}
 

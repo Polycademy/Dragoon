@@ -3,3 +3,24 @@
 
 //this will be the script that contacts Dragoon.php
 //inspired from https://github.com/laravel/laravel/blob/master/artisan
+//we can use this to build Dragoon
+//we can use this to run Tasks
+//launch the Dragoon server
+
+set_time_limit(0);
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    //dragoon was installed as the project framework
+    require_once(__DIR__ .'/vendor/autoload.php');
+} elseif (file_exists(__DIR__ . '/../../autoload.php')) {
+    //dragoon as a vendored library, we need to go up vendor/namespace/package/executable
+    require_once __DIR__ . '/../../autoload.php';
+} else {
+    throw new Exception('Composer\'s autoloader could not be located.');
+}
+
+$application = new Symfony\Component\Console\Application('Dragoon', '0.0.1');
+
+$application->add(new Dragoon\Commands\Server\Run);
+
+$application->run();
