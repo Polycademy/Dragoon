@@ -5,6 +5,8 @@ Dragoon is an experimental API framework. It's focused on bringing the concepts 
 
 Nothing is currently usable right now. Still in pre-alpha phase.
 
+We need a Vagrant Docker to provision and run this application! Vagrant + Docker is probably better than a full image. Although a full image can be used with Tiny Core Linux.
+
 Routing Structure
 -----------------
 
@@ -28,80 +30,83 @@ Server (daemon loop)
 External Server Eventloop + FastCGI
     This then just starts at the HTTP Foundation level entering into the Front Controller
 
+```
+                                                                Kernel is a Monad! It's also the IOC DI.                                                                 
+                                                                                                                                                                         
+                                                                                                                                                                         
+                                     Request     +-------------------------------------------------------------------+                                                   
+            +-----------------+                  |                                                                   |                                                   
+            |                 | +------------->  +-+                                                                 |                                                   
+            |                 |                  | |                                                                 |                                                   
+            |                 |                  | |  +---------------------+             +------------------+       |                                                   
+   SAPI     |                 |                  | |  |      Aspect         |             |      Aspect      |       |                                                   
+            |   Router is     |                  | |  |                     |             |   +-----------+  |       |     T => Type Task                                
++-------->  |   the composer  |                  | |T |  T +------------+ T | T        T  | T |Controller |T |T      |     Aspects and Controllers are Functions         
+            |   that executes |                  | +> | +> | Controller +-> | +---------> +-> |           +-----+    |     that accept and return the same type T.       
+            |   the flow      |                  |    |    +------------+   |             |   +-----------+  |  |    |     Which allows them to be infinitely composable,
+            |   based graph.  |                  |    |                     |             |                  |  |    |     and deterministic. Side effects allowed!      
+            |                 |      Response    |    +---------------------+             +------------------+  |    |                                                   
+            |                 |                  |                                                              |    |                                                   
+            |                 | <-------------+  | <------------------------------------------------------------+    |                                                   
+            +-----------------+                  |                                                                   |                                                   
+                                                 +-------------------------------------------------------------------+                                                   
+            Router processes                                                                                                                                             
+            DSL and Macro Template                               Aspects take over the role of middleware.                                                               
+            which comes from the                                 In other words, any logic that is a cross                                                               
+            external client.                                     cutting concern is an aspect!                                                                           
+```
 
+Things to incorporate:
 
+1. Symfony Options Resolver
+2. Dragoon based Autoloader
+3. https://github.com/auraphp/Aura.Marshal
+4. https://github.com/thephpleague/fractal
+5. LINQ
+6. Artax + Phystrix
+7. Expression Engine for DSLs
+8. Pysh for running Dragoon from the Commandline and internal documentation!
 
+DSL and Macro Template:
 
+1. http://www.sitepen.com/blog/2010/11/02/resource-query-language-a-query-language-for-the-web-nosql/
+2. http://www.jsoniq.org/
+3. https://github.com/ativelkov/yaql
+4. http://htsql.org/paper/icomp07_paper.pdf
+5. http://www.javacodegeeks.com/2012/01/simplifying-restful-search.html
+6. http://www.w3.org/DesignIssues/MatrixURIs.html and http://stackoverflow.com/questions/401981/when-to-use-query-parameters-versus-matrix-parameters and http://stackoverflow.com/questions/2048121/url-matrix-parameters-vs-request-parameters
 
+Using an FBP graph we can use as a "compositor" or "orchestrator" that wires up the inports and outports of each controller. The T type which is the task type is a simple type specifying the Req and Res. Controllers can be ran in separate threads if needed, but otherwise they are simply spun up as part of the same process, with the idea of the inports and outports orthogonal to the actual transport layer, it could just be memory copies after all. The FBP graph is also the IoC in this case, injecting dependencies to construct the controllers. Part of this will be done through the Resource Query Language.
+Furthermore unlike Noflo, the inports and outports are not strictly defined, but simply the public functions of the controllers. So whichever public functions there are, they represent the inports. In a RESTful controller, there are GET, POST, PUT, PATCH, DELETE. These isolated operations can be piped into each other, so one can activate a delete on one controller, and recursively activate a get function on the same controller. But it could also pipe into another controller. Now as to the error control semantics, this probably is not defined by the in-port functions, because they can't know what piped into them. Instead this is setup at a high level, either from the IoC Object/Flow Graph, or the Resource Query Language. Fail hard, fail soft, or fail in between. Along with split tracks... etc.
+There maybe a problem regarding serialisation of output data and then deserialisation of input data at each connection pipe. We could just leave it with this problem, but it might also be possible to make it that when piping to each other, they use a very cheap serialisation method? Instead of human readable output format? So we're not encoding into JSON at the end of each controller endpoint, but instead we're just passing straight text? Or some sort of memory encoded data structure? Like a raw array? Binary arrays? Now what if these controllers live in a distributed system? Then you're in erlang territory already. If we do this, then there's no such thing as template transformer at the end of each function, instead there is an Human Readable Output controller. This becomes the default end pipe to collates everything together, it's the "REDUCE" function. Or templating function? See this: http://en.wikipedia.org/wiki/Data_transformation and http://stackoverflow.com/questions/6845682/real-time-collaborative-drawing-whiteboard-in-html5-js-and-websockets
+What about split piping and returning everything. We need some way of linearing them?
+The whole DSL should be able to quickly define a hypergraph, graphs that contain subgraphs, subgraphs make up minicomputations, and they can become macros that can be inserted between operations and larger operations.
 
+->C1 -> (subgraph C21 -> C22 ?? recursive?) -> C3
 
+One interesting difference is that FBP makes components first class citizens, whereas controllers are not really intended to be loaded by other controllers. They define the API endpoints, that can be reused in order construct more flexible resource outputs, and promise pipelining of functionality.
 
+However the end modules that are used by the Controllers can also be managed by FBP. They can be wired up, using hypergraphs as well.
 
+Is there a way in which we can blur the difference between Controller Components and Module Components, so that Module Components can be elected to become Controller components?
 
+I guess one can think of Controller Components are the entry points with no immediate ancestors. Whereas the module components are not necessarily meant to be used against the public manner. They are the business domain logic which can also be modelled using flow based programming if need be.
 
+Another concept is FSM -> Finite State Machines. They are slightly different in the idea that one models the changes in the state of a single value. They are essentially sequential control?
 
+Hypergraphs are simpy that instead of nodes directly connected to each other, that is edges with 2 vertices, but that edges can have multiple vertices. So 3 nodes can be connected to each other using a single edge. For example a hypergraph is useful when a relationship isn't strictly binary, but trinary and up. In chemistry one can model A+C => B+C. In that with C as a catalyst, it changes to A to B. Therefore instead of A <> B, it's actually A <> B <> C. In terms of DSL, one would command dataflow like A -> out (B, C), which splits A's output to B and C. Or that A -> B -> C. Which means A's output goes into B then C. But this is simple binary relationships. 
 
+Noflow has a FBP network protocol which allows WAN communication! Also internal messaging too.
 
+You know subgraphs are packaging a wired up graph to be used elsewhere, it doesn't really DSL perspective, but represents a domain model that can be used by the user. I think this means that one should be able to create subgraphs for the user to use as expressions in the DSL.
 
+We need experiment with Swoole or React + Recoil (https://github.com/recoilphp/recoil)
 
-Index.php is the FC.
-Router.php is a master middleware which calls in the other middleware.
-Loader.php is the IOC that bootstraps all modules, libraries and most importantly controllers.
+Noflow exported to JSON graph language is not a good way of writing applications. It's an approximation of visual but turned into an ugly and verbose format. This format is great for machines though. I can envision that one can export the program into a JSON graph, and another machine can read the JSON graph and visualise it. Or the other way around would be create something visually then export it to a graph, which might be able to be converted to a DSL.
 
-Loader is the IOC that registers all the necessary controllers and modules.
-The Kernel needs to the Loader so it can build up a stack of middleware. (pre middle and post middle)
-The Router needs to the Kernel so it rout any URL paths to the controller, while running through the middleware
-stack(A, B, C) -> Controller -> stack(X, Y, Z)
+Finite State Machines => http://ptolemy.eecs.berkeley.edu/papers/96/bilungMasters/msReport.pdf
 
-Router
-    -> /
-        -> Stack(A, B, C, D)->IOC->Stack(X, Y, Z)
-
-Use FastRouter
-
-Build Tools
------------
-
-Gulp.js for streamed and watched builds.
-
-Object Construction
--------------------
-
-IOC - Auryn build object graph at the front. Perhaps we have intermediate factories so that it's not all in one bootstrapped superclass. Or we could use traits to build related objects.
-Use Options Resolved for complex options in classes -> http://symfony.com/doc/current/components/options_resolver.html
-
-Dragoon uses PSR-4. It has it's own autoloader. But Composer can be used to.
-
-Persistent State Manipulation
------------------------------
-
-Temporal database. Functional databases. ORM. Data hydration into correct models.
-
-Storage should be abstracted into drivers, these drivers are therefore declarative. Moving the storage access logic out of the flow.
-
-This is all about converting the data model stored into a data model workable in PHP.
-
-http://www.doctrine-project.org/
-https://github.com/auraphp/Aura.Marshal
-https://github.com/thephpleague/fractal
-LINQ implementations.
-
-Conditions: Flexibility of SQL databases. Elegant syntax. Fixing up the affected rows. Exposing the PDO object instance.
-
-Standards
----------
-
-Follows PSR as closely as possible. Mixed case is fine. Most parts will be in underscore, but some API will obviously utilise camelCase. All data properties will always be in camelCase to match the front end javascript standard.
-
-Communications
---------------
-
-Requests + Artax + Phystrix
-
-Serializing
------------
-
-Use Serializer -> http://symfony.com/doc/current/components/serializer.html for serialising objects.
+Some ideas here: https://github.com/bergie/phpflo/blob/master/src/PhpFlo/Graph.php
 
 DSL and Math DSLs
 -----------------
@@ -404,3 +409,26 @@ Anyway:
 3. http://en.wikipedia.org/wiki/Monad_%28functional_programming%29
 
 So we have a new thing called ASCID transactions. Atomic Secure Consistent Isolated Durable.
+
+Data Streaming
+--------------
+
+Client side should stream all of its inputs most of the time, unless when it expects the data is small.
+
+Our CSV can be streamed.
+
+Our JSON can be streamed using Oboe.js
+
+XML can also be streamed.
+
+So can YAML!
+
+I recommend YAML over XML in pretty every situation!
+
+JSON is very good too.
+
+The great thing, is that servers don't have to do anything. It's always from the client side!
+
+Streaming has a huge advantage in perceived performance. Note that for streaming to work well, the data must be "sequentially read". You cannot operate on the data if you need "random writes".
+
+The other cool thing about Oboe.js, is that you can request a LARGE JSON stream or when it never completes, and you can still use the data.
