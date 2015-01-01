@@ -432,3 +432,5 @@ The great thing, is that servers don't have to do anything. It's always from the
 Streaming has a huge advantage in perceived performance. Note that for streaming to work well, the data must be "sequentially read". You cannot operate on the data if you need "random writes".
 
 The other cool thing about Oboe.js, is that you can request a LARGE JSON stream or when it never completes, and you can still use the data.
+
+Also check this out: https://github.com/blongden/hal
